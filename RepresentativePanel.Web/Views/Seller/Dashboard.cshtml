@@ -1,0 +1,53 @@
+﻿@using RepresentativePanel.Application.Dto
+@model DashboardDto
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+@section Css {
+    <link rel="stylesheet" href="~/css/Internal/Dashboard.css">
+}
+<div class="dashboard-container">
+
+    <div class="profile-section">
+        <div class="profile-image">
+            <img src="/path/to/default-profile.png" alt="Profile Picture" />
+        </div>
+        <div class="profile-details">
+            <h3>@Model.FirstName @Model.LastName</h3>
+            <p>کد نمایندگی: @Model.NationalNumber</p>
+            <p>استان: @Model.Province</p>
+            <p>شهر: @Model.City</p>
+            <p>شماره تماس: @Model.PhoneNumber</p>
+        </div>
+        <div class="profile-actions">
+            <button onclick="showForgotPassword()()">تغییر رمز عبور</button> |
+            <button onclick="logoutUser()">خروج</button>
+        </div>
+    </div>
+
+    <!-- بخش منوها -->
+    <div class="menu-section">
+        <div class="menu-item">
+            <a href="/NewOrder">
+                <img src="icon1.png" alt="New Order" />
+                <span>ثبت سفارش جدید</span>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="/BatteryList">
+                <img src="/path/to/icon2.png" alt="Battery List" />
+                <span>لیست باتری‌ها</span>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="@Url.Action("PersonalInformation", "Seller")">داشبورد</a>
+        </div>
+
+    </div>
+</div>
+
+@section Script {
+    <script src="/js/internal/dashboard.js"></script>
+    <script src="/js/internal/auth.js"></script>
+}

@@ -1,21 +1,18 @@
 ﻿using KermanBattery.Farmework.Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+using RepresentativePanel.DataAccess.Persistence;
+using RepresentativePanel.Domain.Repository;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace KermanBattery.Farmework.Infrastructure
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        private readonly DbContext context;
+        private readonly RepresentativePanelContext context;
         private DbSet<TEntity> DbSet { get; }
 
-        public GenericRepository(DbContext context)
+        public GenericRepository(RepresentativePanelContext context)
         {
             this.context = context;
             this.DbSet = context.Set<TEntity>();

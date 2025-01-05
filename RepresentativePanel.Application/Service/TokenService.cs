@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using RepresentativePanel.Application.Contract.Seller.Auth;
+using RepresentativePanel.Application.Contract.Auth;
+using RepresentativePanel.Application.Contract.Auth.Dto;
 namespace RepresentativePanel.Application.Service
 {
     public class TokenService : ITokenService

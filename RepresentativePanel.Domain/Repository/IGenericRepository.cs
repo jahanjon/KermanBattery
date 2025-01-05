@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KermanBattery.Farmework.Domain
+namespace RepresentativePanel.Domain.Repository
 {
     public interface IGenericRepository<TEntity> : IDisposable where TEntity : class
     {
@@ -20,5 +19,4 @@ namespace KermanBattery.Farmework.Domain
         void DeleteEntity(TEntity entity);
         Task SaveChange();
     }
-
 }

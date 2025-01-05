@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\css\internal\" />
-    <Folder Include="wwwroot\js\internal\" />
+    <ProjectReference Include="..\RepresentativePanel.Application.Contract\RepresentativePanel.Application.Contract.csproj" />
+    <ProjectReference Include="..\RepresentativePanel.Application\RepresentativePanel.Application.csproj" />
   </ItemGroup>
 
 </Project>

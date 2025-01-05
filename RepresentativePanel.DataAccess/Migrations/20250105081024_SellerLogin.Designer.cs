@@ -12,8 +12,8 @@ using RepresentativePanel.DataAccess.Persistence;
 namespace RepresentativePanel.DataAccess.Migrations
 {
     [DbContext(typeof(RepresentativePanelContext))]
-    [Migration("20241230131126_Initial")]
-    partial class Initial
+    [Migration("20250105081024_SellerLogin")]
+    partial class SellerLogin
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,6 +122,59 @@ namespace RepresentativePanel.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sellers");
+                });
+
+            modelBuilder.Entity("RepresentativePanel.Domain.SellerAgg.SellerLogin", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IpAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastUpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LoginTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LogoutTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SellerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SellerId");
+
+                    b.ToTable("UserLogins");
+                });
+
+            modelBuilder.Entity("RepresentativePanel.Domain.SellerAgg.SellerLogin", b =>
+                {
+                    b.HasOne("RepresentativePanel.Domain.SellerAgg.Seller", "Seller")
+                        .WithMany("SellerLogins")
+                        .HasForeignKey("SellerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Seller");
+                });
+
+            modelBuilder.Entity("RepresentativePanel.Domain.SellerAgg.Seller", b =>
+                {
+                    b.Navigation("SellerLogins");
                 });
 #pragma warning restore 612, 618
         }

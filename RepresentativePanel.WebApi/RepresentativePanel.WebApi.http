@@ -1,6 +1,0 @@
-@RepresentativePanel.WebApi_HostAddress = http://localhost:5128
-
-GET {{RepresentativePanel.WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

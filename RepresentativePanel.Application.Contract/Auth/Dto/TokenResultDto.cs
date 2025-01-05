@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RepresentativePanel.Application.Contract.Seller.Auth
+namespace RepresentativePanel.Application.Contract.Auth.Dto
 {
     public class TokenResultDto
     {

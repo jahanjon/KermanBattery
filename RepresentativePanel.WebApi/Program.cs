@@ -11,7 +11,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 #region ServiceExtensions
 RepresentativePanelServiceExtensions.AddDatabaseContext(builder.Services, builder.Configuration);
-
+builder.Services.RegisterRepositories();
+builder.Services.RegisterServices();
+builder.Services.RegisterMapperProfiles();
+builder.Services.AddJwtAuthenticationToServices(builder.Configuration);
 #endregion
 var app = builder.Build();
 

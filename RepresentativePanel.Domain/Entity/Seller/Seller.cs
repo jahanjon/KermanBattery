@@ -1,4 +1,5 @@
 ﻿using KermanBattery.Farmework.Domain;
+using RepresentativePanel.Domain.Entity.SellerLogin;
 using RepresentativePanel.Domain.Enum;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RepresentativePanel.Domain.SellerAgg
+namespace RepresentativePanel.Domain.Entity.SellerAgg
 {
     public class Seller : BaseEntity
     {
@@ -34,6 +35,13 @@ namespace RepresentativePanel.Domain.SellerAgg
         public Gender Gender { get; private set; }
         public Roles Role { get; private set; }
 
+        #region Relation
+        public ICollection<RepresentativePanel.Domain.Entity.SellerLogin.SellerLogin> SellerLogins { get; private set; }
+        #endregion
+
+        #region Constructor
+
+
         public void ChangePassword(string newPassword, ISellerRepository hasher)
         {
             Password = hasher.HashPassword(newPassword);
@@ -55,5 +63,16 @@ namespace RepresentativePanel.Domain.SellerAgg
             IsDeleted = isDeleted;
             IsActive = true;
         }
+        public bool ValidateOtpCode(string otpCode)
+        {
+            return OtpCode == otpCode && CodeExpireTime > DateTime.Now;
+        }
+        public void UpdateProfile(string title, string province, string address)
+        {
+            Title = title;
+            Province = province;
+            Address = address;
+        }
+        #endregion 
     }
 }

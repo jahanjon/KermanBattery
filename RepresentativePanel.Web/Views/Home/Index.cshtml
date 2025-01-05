@@ -4,5 +4,71 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p> Kerman Battery</p>
 </div>
+
+@section Css {
+    <link rel="stylesheet" href="~/css/Internal/Auth.css">
+}
+
+<div class="container">
+
+    <div class="form-container" id="login-form">
+        <h1>Login</h1>
+        <div class="input-group">
+            <label for="login-phone">PhoneNumber</label>
+            <input id="login-phone" class="input-field" placeholder="Enter your phone number">
+        </div>
+        <div class="input-group">
+            <label for="login-password" style="width:26%;">Password</label>
+            <input type="password" id="login-password" class="input-field" placeholder="Enter your password">
+        </div>
+        <div class="captcha-container">
+            <label for="captcha">Enter the text shown below:</label>
+            <div id="captcha" class="captcha-text">AB12CD</div>
+            <input type="text" id="captcha-input" class="input-field" style="width:65%" margin-left:-8px; ; placeholder="Enter CAPTCHA">
+            <button type="button" class="refresh-captcha" onclick="generateCaptcha()">Refresh</button>
+            <span id="captcha-error" style="color: red; display: none;">Incorrect CAPTCHA, please try again.</span>
+        </div>
+        <button id="login-button" class="button" onclick="loginUser()">Login</button>
+        <p class="switch-text">
+            Forgot your password? <a href="#" onclick="showForgotPassword()">Forgot Password</a>
+        </p>
+    </div>
+    <div class="form-container" id="forgot-password-form" style="display: none;">
+        <h1>Forgot Password</h1>
+        <div class="input-group">
+            <label for="forgot-phone">Phone Number</label>
+            <input type="text" id="forgot-phone" class="input-field" placeholder="Enter your phone number">
+        </div>
+        <button id="send-code-button" class="button" onclick="sendVerificationCode()">Send Verification Code</button>
+        <p class="switch-text">
+            Remember your password? <a href="#" onclick="showLogin()">Back to Login</a>
+        </p>
+    </div>
+    <div class="form-container" id="enter-verification-code-form" style="display: none;">
+        <h1>Enter Verification Code</h1>
+        <div class="input-group">
+            <label for="verification-code">Verification Code</label>
+            <input type="text" id="verification-code" class="input-field" placeholder="Enter the verification code">
+        </div>
+        <div class="input-group">
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password" class="input-field" placeholder="Enter your new password">
+        </div>
+        <div class="input-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" class="input-field" placeholder="Confirm your new password">
+        </div>
+        <button id="change-password-button" class="button" onclick="changePassword()">Change Password</button>
+    </div>
+
+</div>
+
+
+@section Script {
+    <script src="/js/internal/auth.js"></script>
+}
+<script>
+    const dashboardUrl = '@Url.Action("Dashboard", "Seller")';
+</script>

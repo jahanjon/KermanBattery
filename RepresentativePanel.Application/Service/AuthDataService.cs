@@ -1,14 +1,14 @@
 ﻿using KermanBattery.Farmework.Domain;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using RepresentativePanel.Application.Contract.Seller.Auth;
+using RepresentativePanel.Application.Contract.Auth;
+using RepresentativePanel.Application.Contract.Auth.Dto;
+using RepresentativePanel.Application.Contract.Seller;
 using RepresentativePanel.Domain.Core;
+using RepresentativePanel.Domain.Entity.SellerAgg;
 using RepresentativePanel.Domain.Enum;
-using RepresentativePanel.Domain.SellerAgg;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RepresentativePanel.Domain.Repository;
+
 
 namespace RepresentativePanel.Application.Service
 {
@@ -16,6 +16,15 @@ namespace RepresentativePanel.Application.Service
     {
         private readonly IGenericRepository<Seller> selllerRepsoitory;
         private readonly ISellerRepository hasherPassword;
+        private readonly ISellerLoginService sellerLoginService;
+
+        public AuthDataService(IGenericRepository<Seller> selllerRepsoitory, ISellerRepository hasherPassword, ISellerLoginService sellerLoginService)
+        {
+            this.selllerRepsoitory = selllerRepsoitory;
+            this.hasherPassword = hasherPassword;
+            this.sellerLoginService = sellerLoginService;
+        }
+
         public async Task<Result<TokenResultDto>> Login(LoginDto loginDto, string jwtKey)
         {
             var user = await selllerRepsoitory.GetEntities()
@@ -61,7 +70,6 @@ namespace RepresentativePanel.Application.Service
 
             var tokenService = new TokenService();
             var token = tokenService.GenerateToken(tokenParameters, jwtKey);
-
             var loginDtoResult = new TokenResultDto
             {
                 Token = token
@@ -69,5 +77,48 @@ namespace RepresentativePanel.Application.Service
 
             return Result<TokenResultDto>.Success(200, "ورود موفقیت‌آمیز بود", loginDtoResult);
         }
+
+        public async Task<Result<string>> ChangePassword(ChangePasswordDto changePasswordDto)
+        {
+            var user = await selllerRepsoitory.GetEntities()
+                .SingleOrDefaultAsync(x => x.PhoneNumber == changePasswordDto.PhoneNumber);
+
+            if (user == null)
+            {
+                return Result<string>.Failure(-400, "کاربری با این شماره تلفن یافت نشد");
+            }
+
+            if (!user.ValidateOtpCode(changePasswordDto.VerificationCode))
+            {
+                return Result<string>.Failure(-400, "کد تأیید نامعتبر یا منقضی شده است");
+            }
+
+            user.ChangePassword(changePasswordDto.NewPassword, hasherPassword);
+            user.SetOtpCode(null, DateTime.MinValue);
+
+            await selllerRepsoitory.SaveChange();
+
+            return Result<string>.Success(200, "رمز عبور با موفقیت تغییر یافت");
+        }
+
+        public async Task<Result<string>> GetVerificationCode(GetverificationCodeDto getverification)
+        {
+            var user = await selllerRepsoitory.GetEntities()
+                .SingleOrDefaultAsync(x => x.PhoneNumber == getverification.PhoneNumber);
+
+            if (user == null)
+            {
+                return Result<string>.Failure(-400, "کاربری با این شماره تلفن یافت نشد");
+            }
+
+            var verificationCode = (123456).ToString();
+
+            user.SetOtpCode(verificationCode, DateTime.Now.AddMinutes(10));
+
+            await selllerRepsoitory.SaveChange();
+
+            return Result<string>.Success(200, "کد تأیید تولید شد", verificationCode);
+        }
+
     }
 }

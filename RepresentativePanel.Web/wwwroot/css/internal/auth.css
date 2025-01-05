@@ -1,0 +1,112 @@
+﻿.container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+}
+
+.form-container h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+    color: #333333;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+    .input-group label {
+        font-size: 14px;
+        color: #555555;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    background-color: #6a11cb;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+    .button:hover {
+        background-color: #2575fc;
+    }
+
+.captcha-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.captcha-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4CAF50;
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.refresh-captcha {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .refresh-captcha:hover {
+        background-color: #45a049;
+    }
+
+.input-field {
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input-captcha {
+    width: 50%;
+}
+
+.captcha-text {
+    font-size: 11px;
+    font-weight: bold;
+    color: #4CAF50;
+    background-color: #f1f1f1;
+    padding: 14px;
+    margin-bottom: 10px;
+    display: inline-block;
+    border-radius: 8px;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+    .captcha-text:hover {
+        background-color: #e0f7fa;
+        transform: scale(1.05);
+    }

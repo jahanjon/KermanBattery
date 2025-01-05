@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RepresentativePanel.Domain.SellerAgg;
+using RepresentativePanel.Domain.Entity.SellerAgg;
 using System;
 using System.Collections.Generic;
 using System.Linq;
