@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RepresentativePanel.Configuration\RepresentativePanel.Configuration.csproj" />
-    <ProjectReference Include="..\RepresentativePanel.DataAccess\RepresentativePanel.DataAccess.csproj" />
+    <ProjectReference Include="..\RepresentativePanel.Configuration\KermanBatterySeller.Configuration.csproj" />
+    <ProjectReference Include="..\RepresentativePanel.DataAccess\KermanBatterySeller.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

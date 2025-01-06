@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RepresentativePanel.Domain\RepresentativePanel.Domain.csproj" />
+    <ProjectReference Include="..\RepresentativePanel.Domain\KermanBatterySeller.Domain.csproj" />
   </ItemGroup>
 
 </Project>

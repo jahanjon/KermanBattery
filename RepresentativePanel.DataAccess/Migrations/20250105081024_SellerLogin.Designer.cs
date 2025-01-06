@@ -11,7 +11,7 @@ using RepresentativePanel.DataAccess.Persistence;
 
 namespace RepresentativePanel.DataAccess.Migrations
 {
-    [DbContext(typeof(RepresentativePanelContext))]
+    [DbContext(typeof(KermanBatterySellerContext))]
     [Migration("20250105081024_SellerLogin")]
     partial class SellerLogin
     {

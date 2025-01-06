@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RepresentativePanel.Application.Contract\RepresentativePanel.Application.Contract.csproj" />
-    <ProjectReference Include="..\RepresentativePanel.Application\RepresentativePanel.Application.csproj" />
+    <ProjectReference Include="..\RepresentativePanel.Application.Contract\KermanBatterySeller.Contract.csproj" />
+    <ProjectReference Include="..\RepresentativePanel.Application\KermanBatterySeller.Application.csproj" />
   </ItemGroup>
 
 </Project>

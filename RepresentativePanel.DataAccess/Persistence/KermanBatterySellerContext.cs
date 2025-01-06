@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace RepresentativePanel.DataAccess.Persistence
 {
-    public class RepresentativePanelContext : DbContext
+    public class KermanBatterySellerContext : DbContext
     {
         public DbSet<Seller> Sellers { get; set; }
         public DbSet<SellerLogin> UserLogins { get; set; }
-        public RepresentativePanelContext(DbContextOptions<RepresentativePanelContext> options) : base(options)
+        public KermanBatterySellerContext(DbContextOptions<KermanBatterySellerContext> options) : base(options)
         {
             Database.Migrate();
         }

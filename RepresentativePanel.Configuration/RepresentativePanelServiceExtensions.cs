@@ -39,7 +39,7 @@ namespace RepresentativePanel.Configuration
         }
         public static void AddDatabaseContext(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<RepresentativePanelContext>(option =>
+            services.AddDbContext<KermanBatterySellerContext>(option =>
             {
                 option.UseSqlServer(configuration.GetConnectionString("KermanBatteryDbContext"));
             });

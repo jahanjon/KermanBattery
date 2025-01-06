@@ -9,10 +9,10 @@ namespace KermanBattery.Farmework.Infrastructure
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        private readonly RepresentativePanelContext context;
+        private readonly KermanBatterySellerContext context;
         private DbSet<TEntity> DbSet { get; }
 
-        public GenericRepository(RepresentativePanelContext context)
+        public GenericRepository(KermanBatterySellerContext context)
         {
             this.context = context;
             this.DbSet = context.Set<TEntity>();
