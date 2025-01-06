@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RepresentativePanel.Domain.Entity.SellerLogin;
 using RepresentativePanel.Domain.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepresentativePanel.DataAccess.Repository
 {

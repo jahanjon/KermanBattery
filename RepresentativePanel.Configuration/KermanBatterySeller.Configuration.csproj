@@ -1,19 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\RepresentativePanel.Application.Contract\KermanBatterySeller.Contract.csproj" />
-    <ProjectReference Include="..\RepresentativePanel.Application\KermanBatterySeller.Application.csproj" />
-    <ProjectReference Include="..\RepresentativePanel.DataAccess\KermanBatterySeller.Infrastructure.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\RepresentativePanel.Application\KermanBatterySeller.Application.csproj" />
+	  <ProjectReference Include="..\RepresentativePanel.DataAccess\KermanBatterySeller.Infrastructure.csproj" />
+	  <ProjectReference Include="..\RepresentativePanel.Domain\KermanBatterySeller.Domain.csproj" />
+	</ItemGroup>
+
 
 </Project>

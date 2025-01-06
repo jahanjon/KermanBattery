@@ -11,9 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RepresentativePanel.Application.Contract\RepresentativePanel.Application.Contract.csproj" />
-    <ProjectReference Include="..\RepresentativePanel.DataAccess\RepresentativePanel.DataAccess.csproj" />
-    <ProjectReference Include="..\RepresentativePanel.Domain\RepresentativePanel.Domain.csproj" />
+    <ProjectReference Include="..\RepresentativePanel.Application.Contract\KermanBatterySeller.Application.Contract.csproj" />
+    <ProjectReference Include="..\RepresentativePanel.DataAccess\KermanBatterySeller.Infrastructure.csproj" />
+    <ProjectReference Include="..\RepresentativePanel.Domain\KermanBatterySeller.Domain.csproj" />
   </ItemGroup>
 
 </Project>

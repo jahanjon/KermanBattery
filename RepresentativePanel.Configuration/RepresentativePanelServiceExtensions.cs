@@ -1,5 +1,4 @@
-﻿using KermanBattery.Farmework.Domain;
-using KermanBattery.Farmework.Infrastructure;
+﻿using KermanBattery.Farmework.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,11 +13,7 @@ using RepresentativePanel.DataAccess.Repository;
 using RepresentativePanel.Domain.Entity.SellerAgg;
 using RepresentativePanel.Domain.Entity.SellerLogin;
 using RepresentativePanel.Domain.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RepresentativePanel.Configuration
 {

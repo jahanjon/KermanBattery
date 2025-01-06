@@ -2,11 +2,6 @@
 using RepresentativePanel.Domain.Entity.SellerAgg;
 using RepresentativePanel.Domain.Entity.SellerLogin;
 using RepresentativePanel.Domain.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepresentativePanel.Application.Service
 {
@@ -25,11 +20,6 @@ namespace RepresentativePanel.Application.Service
 
         public async Task RecordLoginAsync(string phoneNumber, string ipAddress)
         {
-            var existingLogin = await sellerLoginRepository.GetActiveLoginAsync(phoneNumber);
-            if (existingLogin != null)
-            {
-                throw new InvalidOperationException("User is already logged in.");
-            }
             var getSellerId= sellerRepository.GetEntities().FirstOrDefault(x=>x.PhoneNumber== phoneNumber);
             var newLogin = new SellerLogin(phoneNumber, ipAddress,getSellerId.Id);
             await sellerLoginService.AddEntity(newLogin);

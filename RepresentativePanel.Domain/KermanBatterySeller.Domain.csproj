@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KermanBattery.Farmework\KermanBattery.Farmework.csproj" />
-    <ProjectReference Include="..\RepresentativePanel.Application.Contract\KermanBatterySeller.Contract.csproj" />
+    <ProjectReference Include="..\RepresentativePanel.Application.Contract\KermanBatterySeller.Application.Contract.csproj" />
   </ItemGroup>
 
 </Project>

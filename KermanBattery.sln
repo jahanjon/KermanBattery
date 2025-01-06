@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RepresentativePanel", "RepresentativePanel", "{B37A9235-452C-46D5-AD94-07B11B16EF9E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KermanBatterySeller", "KermanBatterySeller", "{B37A9235-452C-46D5-AD94-07B11B16EF9E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RP.Application", "RP.Application", "{90621186-1A1D-424D-83B1-61ACE32F615C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KBS.Application", "KBS.Application", "{90621186-1A1D-424D-83B1-61ACE32F615C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RP.Domain", "RP.Domain", "{47513316-17AB-49BC-BD92-1F0260947E8C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KBS.Domain", "KBS.Domain", "{47513316-17AB-49BC-BD92-1F0260947E8C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RP.Infrastructure", "RP.Infrastructure", "{A5046568-0B05-4EA5-B8F5-F1CBF579C5D1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KBS.Infrastructure", "KBS.Infrastructure", "{A5046568-0B05-4EA5-B8F5-F1CBF579C5D1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RP.Web", "RP.Web", "{2032A5D1-832F-4B8A-B758-6D8763B23DB5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KBS.Web", "KBS.Web", "{2032A5D1-832F-4B8A-B758-6D8763B23DB5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RP.WebApi", "RP.WebApi", "{70A54F8E-8380-4E6C-8C81-C553C4ECCBF5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KBS.WebApi", "KBS.WebApi", "{70A54F8E-8380-4E6C-8C81-C553C4ECCBF5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KermanBatterySeller.Domain", "RepresentativePanel.Domain\KermanBatterySeller.Domain.csproj", "{19906AB9-F36B-4DA4-ADB4-1437AE1D9C7C}"
 EndProject
@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KermanBattery.Farmework", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KermanBatterySeller.Application", "RepresentativePanel.Application\KermanBatterySeller.Application.csproj", "{C0CC9729-B934-4B32-A480-3B753DDBE03C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KermanBatterySeller.Contract", "RepresentativePanel.Application.Contract\KermanBatterySeller.Contract.csproj", "{5EA5A0C6-964B-443E-81BC-2DD146DF9F7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KermanBatterySeller.Application.Contract", "RepresentativePanel.Application.Contract\KermanBatterySeller.Application.Contract.csproj", "{5EA5A0C6-964B-443E-81BC-2DD146DF9F7C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KermanBatterySeller.Configuration", "RepresentativePanel.Configuration\KermanBatterySeller.Configuration.csproj", "{DD5B2629-52A7-4DF8-A600-A342E5AFA09B}"
 EndProject
