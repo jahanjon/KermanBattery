@@ -1,7 +1,4 @@
-﻿using KermanBattery.Farmework.Domain;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using RepresentativePanel.Application.Contract.Auth;
+﻿using RepresentativePanel.Application.Contract.Auth;
 using RepresentativePanel.Application.Contract.Auth.Dto;
 using RepresentativePanel.Application.Contract.Seller;
 using RepresentativePanel.Domain.Core;
@@ -27,8 +24,7 @@ namespace RepresentativePanel.Application.Service
 
         public async Task<Result<TokenResultDto>> Login(LoginDto loginDto, string jwtKey)
         {
-            var user = await selllerRepsoitory.GetEntities()
-                .SingleOrDefaultAsync(u => u.PhoneNumber == loginDto.PhoneNumber);
+            var user = await selllerRepsoitory.Find(u => u.PhoneNumber == loginDto.PhoneNumber);
 
             if (user == null)
             {
@@ -43,15 +39,14 @@ namespace RepresentativePanel.Application.Service
                 user.ChangePassword(loginDto.Password, hasherPassword);
 
 
-                await selllerRepsoitory.AddEntity(user);
-                await selllerRepsoitory.SaveChange();
+                await selllerRepsoitory.Insert(user);
             }
             else
             {
 
                 if (!hasherPassword.VerifyHashedPassword(user.Password, loginDto.Password))
                 {
-                    return Result<TokenResultDto>.Failure(-400, "ایمیل یا رمز عبور اشتباه است");
+                    return Result<TokenResultDto>.Failure();
                 }
 
 
@@ -75,17 +70,16 @@ namespace RepresentativePanel.Application.Service
                 Token = token
             };
 
-            return Result<TokenResultDto>.Success(200, "ورود موفقیت‌آمیز بود", loginDtoResult);
+            return Result<TokenResultDto>.Success(, loginDtoResult);
         }
 
         public async Task<Result<string>> ChangePassword(ChangePasswordDto changePasswordDto)
         {
-            var user = await selllerRepsoitory.GetEntities()
-                .SingleOrDefaultAsync(x => x.PhoneNumber == changePasswordDto.PhoneNumber);
+            var user = await selllerRepsoitory.Find(x => x.PhoneNumber == changePasswordDto.PhoneNumber);
 
             if (user == null)
             {
-                return Result<string>.Failure(-400, "کاربری با این شماره تلفن یافت نشد");
+                return  Result<string>.Failure(ResultInfo);
             }
 
             if (!user.ValidateOtpCode(changePasswordDto.VerificationCode))
@@ -96,15 +90,14 @@ namespace RepresentativePanel.Application.Service
             user.ChangePassword(changePasswordDto.NewPassword, hasherPassword);
             user.SetOtpCode(null, DateTime.MinValue);
 
-            await selllerRepsoitory.SaveChange();
+            await selllerRepsoitory.Update(user);
 
             return Result<string>.Success(200, "رمز عبور با موفقیت تغییر یافت");
         }
 
         public async Task<Result<string>> GetVerificationCode(GetverificationCodeDto getverification)
         {
-            var user = await selllerRepsoitory.GetEntities()
-                .SingleOrDefaultAsync(x => x.PhoneNumber == getverification.PhoneNumber);
+            var user = await selllerRepsoitory.Find(x => x.PhoneNumber == getverification.PhoneNumber);
 
             if (user == null)
             {
@@ -115,9 +108,9 @@ namespace RepresentativePanel.Application.Service
 
             user.SetOtpCode(verificationCode, DateTime.Now.AddMinutes(10));
 
-            await selllerRepsoitory.SaveChange();
+            await selllerRepsoitory.Update(user);
 
-            return Result<string>.Success(200, "کد تأیید تولید شد", verificationCode);
+            return Result<string>.Success(ResultCode);
         }
 
     }

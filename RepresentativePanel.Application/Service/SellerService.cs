@@ -3,6 +3,7 @@ using KermanBattery.Farmework.Domain;
 using Microsoft.EntityFrameworkCore;
 using RepresentativePanel.Application.Contract.Seller;
 using RepresentativePanel.Application.Dto;
+using RepresentativePanel.DataAccess.Repository;
 using RepresentativePanel.Domain.Core;
 using RepresentativePanel.Domain.Entity.SellerAgg;
 using RepresentativePanel.Domain.Repository;
@@ -27,34 +28,42 @@ namespace RepresentativePanel.Application.Service
 
         public async Task<Result<DashboardDto>> GetSellerData(string phoneNumber)
         {
-            var seller = await sellerRepsoiotry.GetEntities()
-                .FirstOrDefaultAsync(s => s.PhoneNumber == phoneNumber);
+
+            var seller = await sellerRepsoiotry.FindAsNoTracking(s => s.PhoneNumber == phoneNumber);
 
             if (seller == null)
             {
                 return Result<DashboardDto>.Failure(-400, "BadRequest");
             }
 
+
             var dashboardDto = mapper.Map<DashboardDto>(seller);
             return Result<DashboardDto>.Success(200, "Data retrieved successfully", dashboardDto);
         }
+
 
         public async Task<Result<bool>> UpdateAndInsertProfile(DashboardDto dashboardDto)
         {
             try
             {
-                var seller = await sellerRepsoiotry.GetEntities()
-                    .FirstOrDefaultAsync(x => x.PhoneNumber == dashboardDto.PhoneNumber);
+
+                var seller = await sellerRepsoiotry.Find(x => x.PhoneNumber == dashboardDto.PhoneNumber);
 
                 if (seller == null)
                 {
-                    return Result<bool>.Failure(-400, "Seller not found");
+                    return Result<bool>.Failure(-400, "نماینده با این شما تلفن وجود ندارد");
                 }
+
 
                 seller.UpdateProfile(dashboardDto.Title, dashboardDto.Province, dashboardDto.Address);
 
-                sellerRepsoiotry.UpdateEntity(seller);
-                await sellerRepsoiotry.SaveChange();
+
+                var updateResult = await sellerRepsoiotry.Update(seller);
+
+                if (!updateResult)
+                {
+                    return Result<bool>.Failure(-500, "Failed to update seller profile");
+                }
 
                 return Result<bool>.Success(200, "Profile updated successfully", true);
             }
@@ -64,10 +73,10 @@ namespace RepresentativePanel.Application.Service
             }
         }
 
+
         public async Task<Result<DashboardDto>> UpdateProfileAsync(string phoneNumber)
         {
-            var seller = await sellerRepsoiotry.GetEntities()
-                .FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
+            var seller = await sellerRepsoiotry.Find(x => x.PhoneNumber == phoneNumber);
 
             if (seller == null)
             {

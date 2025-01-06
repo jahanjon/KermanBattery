@@ -31,6 +31,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KermanBatterySeller.WebApi"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KermanBatterySeller.Web", "RepresentativePanel.Web\KermanBatterySeller.Web.csproj", "{F75DEEEB-4215-4BB2-A6BF-2C767C31C346}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8404E50B-184B-4008-852C-FAFA7B2E87D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KermanBatterySellerTest", "KermanBatterySellerTest", "{E4C6F354-2B85-4B91-BDED-85C306770975}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KermanBatterSeller.UnitTest", "KermanBatterSeller.UnitTest\KermanBatterSeller.UnitTest.csproj", "{A8825AAA-EFF1-41B4-8B6A-9432AB919881}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +75,10 @@ Global
 		{F75DEEEB-4215-4BB2-A6BF-2C767C31C346}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F75DEEEB-4215-4BB2-A6BF-2C767C31C346}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F75DEEEB-4215-4BB2-A6BF-2C767C31C346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8825AAA-EFF1-41B4-8B6A-9432AB919881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8825AAA-EFF1-41B4-8B6A-9432AB919881}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8825AAA-EFF1-41B4-8B6A-9432AB919881}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8825AAA-EFF1-41B4-8B6A-9432AB919881}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +96,8 @@ Global
 		{9E374231-F25C-4034-8046-AD1323CC5F75} = {A5046568-0B05-4EA5-B8F5-F1CBF579C5D1}
 		{24921735-8D53-4B3A-96AA-CE355518428D} = {70A54F8E-8380-4E6C-8C81-C553C4ECCBF5}
 		{F75DEEEB-4215-4BB2-A6BF-2C767C31C346} = {2032A5D1-832F-4B8A-B758-6D8763B23DB5}
+		{E4C6F354-2B85-4B91-BDED-85C306770975} = {8404E50B-184B-4008-852C-FAFA7B2E87D9}
+		{A8825AAA-EFF1-41B4-8B6A-9432AB919881} = {E4C6F354-2B85-4B91-BDED-85C306770975}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8FA0F19A-F8F4-4B77-AF92-C4F5C0882596}

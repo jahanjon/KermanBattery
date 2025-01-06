@@ -1,4 +1,5 @@
-﻿using RepresentativePanel.Application.Contract.Auth;
+﻿using Microsoft.EntityFrameworkCore;
+using RepresentativePanel.Application.Contract.Auth;
 using RepresentativePanel.Domain.Entity.SellerAgg;
 using RepresentativePanel.Domain.Entity.SellerLogin;
 using RepresentativePanel.Domain.Repository;
@@ -17,14 +18,35 @@ namespace RepresentativePanel.Application.Service
             this.sellerLoginRepository = sellerLoginRepository;
             this.sellerRepository = sellerRepository;
         }
-
+        ///*********************** TODO RESULT ***************
         public async Task RecordLoginAsync(string phoneNumber, string ipAddress)
         {
-            var getSellerId= sellerRepository.GetEntities().FirstOrDefault(x=>x.PhoneNumber== phoneNumber);
-            var newLogin = new SellerLogin(phoneNumber, ipAddress,getSellerId.Id);
-            await sellerLoginService.AddEntity(newLogin);
-            await sellerLoginService.SaveChange();
+
+            var getSeller = await sellerRepository.FindAsNoTracking(x => x.PhoneNumber == phoneNumber);
+
+            if (getSeller != null)
+            {
+
+                var existingLogin = await sellerLoginService.Find(x => x.SellerId == getSeller.Id && x.LogoutTime == null);
+
+                if (existingLogin != null)
+                {
+
+                    existingLogin.LastUpdateDate = DateTime.UtcNow;
+                    existingLogin.UpdateIpAddress(ipAddress);
+                    await sellerLoginService.Update(existingLogin);
+                }
+                else
+                {
+
+                    var newLogin = new SellerLogin(phoneNumber, ipAddress, getSeller.Id);
+                    await sellerLoginService.Insert(newLogin);
+                }
+            }
         }
+
+
+
 
         public async Task RecordLogoutAsync(string phoneNumber)
         {
@@ -36,7 +58,7 @@ namespace RepresentativePanel.Application.Service
             }
 
             activeLogin.SetLogoutTime();
-            await sellerLoginService.SaveChange();
+            await sellerLoginService.Update(activeLogin);
         }
     }
 }

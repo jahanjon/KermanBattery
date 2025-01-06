@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RepresentativePanel.Application.Contract.Auth;
 using RepresentativePanel.Application.Contract.Auth.Dto;
-using RepresentativePanel.Application.Service;
 using RepresentativePanel.Domain.Core;
 using System.Security.Claims;
 
@@ -28,12 +27,11 @@ namespace RepresentativePanel.WebApi.Controllers.Auth
         [HttpPost]
         public async Task<Result<TokenResultDto>> Login([FromBody] LoginDto loginDto)
         {
-
+            var ipAddress = loginDto.IPAddress;
             var jwtKey = configuration["TokenKey"];
             var result = await authDataService.Login(loginDto, jwtKey);
             if (result.ResultCode == 200)
             {
-                var ipAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
                 await sellerLoginService.RecordLoginAsync(loginDto.PhoneNumber, ipAddress);
             }
             return result;

@@ -10,5 +10,6 @@ namespace RepresentativePanel.Application.Contract.Auth.Dto
     {
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
+        public string IPAddress { get; set; }
     }
 }

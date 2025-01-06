@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepresentativePanel.DataAccess.Persistence;
 
 #nullable disable
 
-namespace RepresentativePanel.DataAccess.Migrations
+namespace KermanBatterySeller.Infrastructure.Migrations
 {
     [DbContext(typeof(KermanBatterySellerContext))]
-    partial class RepresentativePanelContextModelSnapshot : ModelSnapshot
+    [Migration("20250106121103_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace RepresentativePanel.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RepresentativePanel.Domain.SellerAgg.Seller", b =>
+            modelBuilder.Entity("RepresentativePanel.Domain.Entity.SellerAgg.Seller", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -121,11 +124,13 @@ namespace RepresentativePanel.DataAccess.Migrations
                     b.ToTable("Sellers");
                 });
 
-            modelBuilder.Entity("RepresentativePanel.Domain.SellerAgg.SellerLogin", b =>
+            modelBuilder.Entity("RepresentativePanel.Domain.Entity.SellerLogin.SellerLogin", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -158,9 +163,9 @@ namespace RepresentativePanel.DataAccess.Migrations
                     b.ToTable("UserLogins");
                 });
 
-            modelBuilder.Entity("RepresentativePanel.Domain.SellerAgg.SellerLogin", b =>
+            modelBuilder.Entity("RepresentativePanel.Domain.Entity.SellerLogin.SellerLogin", b =>
                 {
-                    b.HasOne("RepresentativePanel.Domain.SellerAgg.Seller", "Seller")
+                    b.HasOne("RepresentativePanel.Domain.Entity.SellerAgg.Seller", "Seller")
                         .WithMany("SellerLogins")
                         .HasForeignKey("SellerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -169,7 +174,7 @@ namespace RepresentativePanel.DataAccess.Migrations
                     b.Navigation("Seller");
                 });
 
-            modelBuilder.Entity("RepresentativePanel.Domain.SellerAgg.Seller", b =>
+            modelBuilder.Entity("RepresentativePanel.Domain.Entity.SellerAgg.Seller", b =>
                 {
                     b.Navigation("SellerLogins");
                 });

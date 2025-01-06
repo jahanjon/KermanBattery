@@ -12,5 +12,6 @@ namespace RepresentativePanel.Application.Contract.Auth.Dto
         DuplicateNationalNumber = 2,
         DuplicatePhoneNumber = 3,
         BadRequest = 4,
+        IncorrectEmailOrPassword = 5,
     }
 }

@@ -1,5 +1,13 @@
-﻿
-function loginUser() {
+﻿function getUserIP() {
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            let userIP = data.ip;
+            loginUser(userIP); 
+        })
+        .catch(error => console.error('Error fetching IP:', error));
+}
+function loginUser(userIP) {
 
     if (validateCaptcha()) {
         const phone = document.getElementById("login-phone").value;
@@ -11,7 +19,7 @@ function loginUser() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ PhoneNumber: phone, Password: password })
+            body: JSON.stringify({ PhoneNumber: phone, Password: password, IPAddress: userIP })
         })
             .then(response => response.json())
             .then(result => {
@@ -107,7 +115,7 @@ function changePassword() {
         })
         .catch(error => console.error('Error:', error));
 }
-//-----------------------//
+//------------Captcha-----------//
 const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 function generateCaptcha() {
     let captcha = '';

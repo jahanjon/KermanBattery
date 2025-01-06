@@ -11,15 +11,28 @@ namespace RepresentativePanel.Domain.Core
         public T Value { get; set; }
         public string ResultMessage { get; set; }
         public int ResultCode { get; set; }
-        public static Result<T> Success(int resCode, string message, T value)
-            => new Result<T>
-            { Value = value, ResultMessage = message, ResultCode = resCode };
-        public static Result<T> Success(int resCode, string message)
-            => new Result<T> { ResultMessage = message, ResultCode = resCode };
-        public static Result<T> Failure(int resCode, string message)
-            => new Result<T> { ResultMessage = message, ResultCode = resCode };
-    }
 
+        public static Result<T> Success(ResultInfo resultInfo, T value)
+            => new Result<T>
+            {
+                Value = value,
+                ResultMessage = resultInfo.Message,
+                ResultCode = resultInfo.Code
+            };
+
+        public static Result<T> Success(ResultInfo resultInfo)
+            => new Result<T>
+            {
+                ResultMessage = resultInfo.Message,
+                ResultCode = resultInfo.Code
+            };
+        public static Result<T> Failure(ResultInfo resultInfo)
+            => new Result<T>
+            {
+                ResultMessage = resultInfo.Message,
+                ResultCode = resultInfo.Code
+            };
+    }
     public class ResultForNullValues
     {
         public string ResultMessage { get; set; }
@@ -40,5 +53,16 @@ namespace RepresentativePanel.Domain.Core
         public int StatusCode { get; set; }
         public string Message { get; set; }
         public string Details { get; set; }
+    }
+    public class ResultInfo
+    {
+        public int Code { get; set; }
+        public string Message { get; set; }
+
+        public ResultInfo(int code, string message)
+        {
+            Code = code;
+            Message = message;
+        }
     }
 }

@@ -21,7 +21,7 @@
             <p>شماره تماس: @Model.PhoneNumber</p>
         </div>
         <div class="profile-actions">
-            <button onclick="showForgotPassword()()">تغییر رمز عبور</button> |
+            <button onclick="showChangePasswordModal()">تغییر رمز عبور</button> |
             <button onclick="logoutUser()">خروج</button>
         </div>
     </div>
@@ -46,8 +46,29 @@
 
     </div>
 </div>
+<div id="changePasswordModal" class="modal" style="display:none">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="changePasswordStep1">
+            <h3>تغییر رمز عبور</h3>
+            <label for="forgot-phone">شماره تلفن:</label>
+            <input type="text" id="forgot-phone" placeholder="شماره تلفن خود را وارد کنید" />
+            <button onclick="sendVerificationCode()">ارسال کد تایید</button>
+        </div>
+        
+        <div id="changePasswordStep3" style="display:none;">
+            <h3>تغییر رمز عبور جدید</h3>
+            <label for="verification-code">کد تایید:</label>
+            <input type="text" id="verification-code" placeholder="کد تایید را وارد کنید" />
+            <label for="new-password">رمز عبور جدید:</label>
+            <input type="password" id="new-password" placeholder="رمز عبور جدید" />
+            <label for="confirm-password">تکرار رمز عبور:</label>
+            <input type="password" id="confirm-password" placeholder="تکرار رمز عبور" />
+            <button onclick="changePassword()">تغییر رمز عبور</button>
+        </div>
+    </div>
+</div>
 
 @section Script {
     <script src="/js/internal/dashboard.js"></script>
-    <script src="/js/internal/auth.js"></script>
 }
