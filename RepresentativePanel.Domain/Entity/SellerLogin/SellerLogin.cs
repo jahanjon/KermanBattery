@@ -44,8 +44,6 @@ namespace RepresentativePanel.Domain.Entity.SellerLogin
 
         public void SetLogoutTime()
         {
-            if (LogoutTime != null)
-                throw new InvalidOperationException("Logout time is already set.");
             LogoutTime = DateTime.UtcNow;
         }
         #endregion

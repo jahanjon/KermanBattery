@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using KermanBattery.Farmework.Core;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RepresentativePanel.Application.Contract.Auth;
@@ -30,7 +31,7 @@ namespace RepresentativePanel.WebApi.Controllers.Auth
             var ipAddress = loginDto.IPAddress;
             var jwtKey = configuration["TokenKey"];
             var result = await authDataService.Login(loginDto, jwtKey);
-            if (result.ResultCode == 200)
+            if (result.ResultCode == result.ResultCode)
             {
                 await sellerLoginService.RecordLoginAsync(loginDto.PhoneNumber, ipAddress);
             }
@@ -53,7 +54,7 @@ namespace RepresentativePanel.WebApi.Controllers.Auth
         {
             var claims = User.Claims.ToList();
             var phoneNumber = claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.NameIdentifier))?.Value;
-            return Result<string>.Success(200, "Successfully fetched the phone number", phoneNumber);
+            return Result<string>.Success(ResultInfo.OperationSuccess, phoneNumber);
         }
 
         [HttpGet]
@@ -64,11 +65,11 @@ namespace RepresentativePanel.WebApi.Controllers.Auth
             var phoneNumber = GetSellerPhoneNumber()?.Value;
             if (string.IsNullOrEmpty(phoneNumber))
             {
-                return Result<string>.Failure(-400, "Phone number not found");
+                return Result<string>.Failure(ResultInfo.SellerPhoneNumberNotFound);
             }
 
             await sellerLoginService.RecordLogoutAsync(phoneNumber);
-            return Result<string>.Success(200, "Logout successful");
+            return Result<string>.Success(ResultInfo.LogoutSuccess);
         }
 
     }

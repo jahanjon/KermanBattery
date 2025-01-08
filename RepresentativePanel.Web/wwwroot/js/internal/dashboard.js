@@ -23,11 +23,11 @@ function submitForm() {
         body: JSON.stringify(formData)
     })
         .then(response => response.json())
-        .then(data => {
-            if (data.resultCode === 200) {
-                alert(data.resultMessage);
+        .then(result => {
+            if (result.resultCode ==204) {
+                MessageShow("عملیات با موفقیت انجام شد ", result.resultMessage, "موفق", 3000);
             } else {
-                alert("خطایی در به‌روزرسانی اطلاعات رخ داده است.");
+                MessageShow("خطای سرور", result.resultMessage, "error", 3000);
             }
         })
         .catch(error => {
@@ -52,12 +52,12 @@ function sendVerificationCode() {
     })
         .then(response => response.json())
         .then(result => {
-            if (result.resultCode === 200) {
-                alert("کد تایید ارسال شد.");
+            if (result.resultCode === 202) {
+                MessageShow("عملیات با موفقیت انجام شد ", result.resultMessage, "موفق", 3000);
                 document.getElementById("changePasswordStep1").style.display = "none";
                 document.getElementById("changePasswordStep3").style.display = "block";
             } else {
-                alert(result.resultMessage);
+                MessageShow("خطای سرور", result.resultMessage, "error", 3000);
             }
         })
         .catch(error => console.error('Error:', error));
@@ -69,7 +69,7 @@ function changePassword() {
     const verificationCode = document.getElementById("verification-code").value;  
 
     if (newPassword !== confirmPassword) {
-        alert("رمز عبور جدید و تایید آن یکسان نیستند.");
+        MessageShow("خطای سرور", "رمز عبور جدید و تایید آن یکسان نیستند.", "error", 3000);
         return;
     }
 
@@ -84,11 +84,11 @@ function changePassword() {
     })
         .then(response => response.json())
         .then(result => {
-            if (result.resultCode === 200) {
-                alert("رمز عبور با موفقیت تغییر یافت.");
+            if (result.resultCode === 204) {
+                MessageShow("عملیات با موفقیت انجام شد ", result.resultMessage, "موفق", 3000);
                 closeModal();  
             } else {
-                alert(result.resultMessage);
+                MessageShow("خطای سرور", result.resultMessage, "error", 3000);
             }
         })
         .catch(error => console.error('Error:', error));
@@ -103,10 +103,10 @@ function logoutUser() {
         .then(response => response.json())
         .then(data => {
             if (data.resultCode === 200) {
-                alert(data.resultMessage);
+                MessageShow("عملیات با موفقیت انجام شد ", result.resultMessage, "موفق", 3000);
                 window.location.href = "/Home/Index";
             } else {
-                alert("خطایی در خروج رخ داده است.");
+                MessageShow("خطای سرور", result.resultMessage, "error", 3000);
             }
         })
         .catch(error => {

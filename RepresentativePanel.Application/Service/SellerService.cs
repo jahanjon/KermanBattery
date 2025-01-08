@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using KermanBattery.Farmework.Core;
 using KermanBattery.Farmework.Domain;
 using Microsoft.EntityFrameworkCore;
 using RepresentativePanel.Application.Contract.Seller;
@@ -33,12 +34,12 @@ namespace RepresentativePanel.Application.Service
 
             if (seller == null)
             {
-                return Result<DashboardDto>.Failure(-400, "BadRequest");
+                return Result<DashboardDto>.Failure(ResultInfo.OperationFailed);
             }
 
 
             var dashboardDto = mapper.Map<DashboardDto>(seller);
-            return Result<DashboardDto>.Success(200, "Data retrieved successfully", dashboardDto);
+            return Result<DashboardDto>.Success(ResultInfo.OperationSuccess, dashboardDto);
         }
 
 
@@ -51,7 +52,7 @@ namespace RepresentativePanel.Application.Service
 
                 if (seller == null)
                 {
-                    return Result<bool>.Failure(-400, "نماینده با این شما تلفن وجود ندارد");
+                    return Result<bool>.Failure(ResultInfo.SellerPhoneNumberNotFound);
                 }
 
 
@@ -62,14 +63,14 @@ namespace RepresentativePanel.Application.Service
 
                 if (!updateResult)
                 {
-                    return Result<bool>.Failure(-500, "Failed to update seller profile");
+                    return Result<bool>.Failure(ResultInfo.FailedUpdate);
                 }
 
-                return Result<bool>.Success(200, "Profile updated successfully", true);
+                return Result<bool>.Success(ResultInfo.SuccessUpdate, true);
             }
             catch (Exception ex)
             {
-                return Result<bool>.Failure(-500, $"An error occurred: {ex.Message}");
+                return Result<bool>.Failure(ResultInfo.InternalServerError);
             }
         }
 
@@ -80,11 +81,11 @@ namespace RepresentativePanel.Application.Service
 
             if (seller == null)
             {
-                return Result<DashboardDto>.Failure(-400, "Seller not found");
+                return Result<DashboardDto>.Failure(ResultInfo.SellerPhoneNumberNotFound);
             }
 
             var dashboardDto = mapper.Map<DashboardDto>(seller);
-            return Result<DashboardDto>.Success(200, "Profile data retrieved", dashboardDto);
+            return Result<DashboardDto>.Success(ResultInfo.OperationSuccess, dashboardDto);
         }
 
     }

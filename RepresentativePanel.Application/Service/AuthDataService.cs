@@ -1,4 +1,5 @@
-﻿using RepresentativePanel.Application.Contract.Auth;
+﻿using KermanBattery.Farmework.Core;
+using RepresentativePanel.Application.Contract.Auth;
 using RepresentativePanel.Application.Contract.Auth.Dto;
 using RepresentativePanel.Application.Contract.Seller;
 using RepresentativePanel.Domain.Core;
@@ -46,13 +47,13 @@ namespace RepresentativePanel.Application.Service
 
                 if (!hasherPassword.VerifyHashedPassword(user.Password, loginDto.Password))
                 {
-                    return Result<TokenResultDto>.Failure();
+                    return Result<TokenResultDto>.Failure(ResultInfo.IncorrectEmailOrPassword);
                 }
 
 
                 if (user.IsDeleted)
                 {
-                    return Result<TokenResultDto>.Failure(-400, "کاربر غیرفعال است. لطفاً با پشتیبانی تماس بگیرید.");
+                    return Result<TokenResultDto>.Failure(ResultInfo.UserInactive);
                 }
             }
 
@@ -70,7 +71,7 @@ namespace RepresentativePanel.Application.Service
                 Token = token
             };
 
-            return Result<TokenResultDto>.Success(, loginDtoResult);
+            return Result<TokenResultDto>.Success(ResultInfo.LoginSuccess,loginDtoResult);
         }
 
         public async Task<Result<string>> ChangePassword(ChangePasswordDto changePasswordDto)
@@ -79,12 +80,12 @@ namespace RepresentativePanel.Application.Service
 
             if (user == null)
             {
-                return  Result<string>.Failure(ResultInfo);
+                return  Result<string>.Failure(ResultInfo.UserPhoneNumberNotFound);
             }
 
             if (!user.ValidateOtpCode(changePasswordDto.VerificationCode))
             {
-                return Result<string>.Failure(-400, "کد تأیید نامعتبر یا منقضی شده است");
+                return Result<string>.Failure(ResultInfo.InvalidOrExpiredConfirmationCode);
             }
 
             user.ChangePassword(changePasswordDto.NewPassword, hasherPassword);
@@ -92,7 +93,7 @@ namespace RepresentativePanel.Application.Service
 
             await selllerRepsoitory.Update(user);
 
-            return Result<string>.Success(200, "رمز عبور با موفقیت تغییر یافت");
+            return Result<string>.Success(ResultInfo.PasswordChanged);
         }
 
         public async Task<Result<string>> GetVerificationCode(GetverificationCodeDto getverification)
@@ -101,7 +102,7 @@ namespace RepresentativePanel.Application.Service
 
             if (user == null)
             {
-                return Result<string>.Failure(-400, "کاربری با این شماره تلفن یافت نشد");
+                return Result<string>.Failure(ResultInfo.UserPhoneNumberNotFound);
             }
 
             var verificationCode = (123456).ToString();
@@ -110,7 +111,7 @@ namespace RepresentativePanel.Application.Service
 
             await selllerRepsoitory.Update(user);
 
-            return Result<string>.Success(ResultCode);
+            return Result<string>.Success(ResultInfo.ConfirmationCodeGenerated);
         }
 
     }

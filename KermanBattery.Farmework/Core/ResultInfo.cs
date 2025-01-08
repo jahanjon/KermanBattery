@@ -23,6 +23,7 @@ namespace KermanBattery.Farmework.Core
         public static ResultInfo PhoneNumberFetched => new ResultInfo(203, "شماره تلفن با موفقیت واکشی شد");
         public static ResultInfo PasswordChanged => new ResultInfo(204, "تغییر رمز عبور با موفقیت انجام شد");
         public static ResultInfo LogoutSuccess => new ResultInfo(205, "خروج با موفقیت انجام شد");
+        public static ResultInfo SuccessUpdate => new ResultInfo(204, "ویرایش با موفقیت انجام شد");
         public static ResultInfo BadRequest => new ResultInfo(400, "لطفا ورودی خود را بررسی کنید.");
         public static ResultInfo Unauthorized => new ResultInfo(401, "شما مجاز به انجام این عمل نیستید.");
         public static ResultInfo NotFound => new ResultInfo(404, "منبع درخواستی یافت نشد.");
@@ -33,6 +34,7 @@ namespace KermanBattery.Farmework.Core
         public static ResultInfo UserPhoneNumberNotFound => new ResultInfo(410, "کاربری با این شماره تلفن یافت نشد");
         public static ResultInfo InvalidOrExpiredConfirmationCode => new ResultInfo(411, "کد تأیید نامعتبر یا منقضی شده است");
         public static ResultInfo SellerPhoneNumberNotFound => new ResultInfo(412, "نماینده با این شماره تلفن وجود ندارد");
+        public static ResultInfo FailedUpdate => new ResultInfo(413, "ویرایش انجام نشد لطفا مجدد تلاش کنید");
 
 
     }

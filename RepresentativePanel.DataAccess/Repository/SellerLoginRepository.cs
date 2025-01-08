@@ -16,7 +16,7 @@ namespace RepresentativePanel.DataAccess.Repository
 
         public async Task<SellerLogin> GetActiveLoginAsync(string phoneNumber)
         {
-            var result = await sellerLogin.Find(x => x.PhoneNumber == phoneNumber && x.LogoutTime == null);
+            var result = await sellerLogin.Find(x => x.PhoneNumber == phoneNumber);
             return result;
         }
     }

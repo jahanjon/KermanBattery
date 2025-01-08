@@ -3,7 +3,7 @@
         .then(response => response.json())
         .then(data => {
             let userIP = data.ip;
-            loginUser(userIP); 
+            loginUser(userIP);
         })
         .catch(error => console.error('Error fetching IP:', error));
 }
@@ -23,17 +23,19 @@ function loginUser(userIP) {
         })
             .then(response => response.json())
             .then(result => {
-                if (result.resultCode === 200) {
-
+                if (result.resultCode === 201) {
+                    MessageShow("عملیات با موفقیت انجام شد", result.resultMessage, "موفق", 3000);
                     localStorage.setItem("AuthToken", result.token);
                     window.location.href = dashboardUrl;
+                    
                 } else {
-                    alert(result.resultMessage);
+                    MessageShow("خطا", result.resultMessage, "error", 3000);
                 }
             })
             .catch(error => console.error('Error:', error));
+        MessageShow("خطای سرور",result.resultMessage, "error", 3000);
     } else {
-        alert("Captcha is incorrect. Please try again.");
+        MessageShow("کپچا نامعتبر", "لطفاً دوباره تلاش کنید.", "warning", 3000);
     }
 }
 
@@ -67,8 +69,8 @@ function sendVerificationCode() {
     })
         .then(response => response.json())
         .then(result => {
-            if (result.resultCode === 200) {
-                alert("Verification code sent.");
+            if (result.resultCode === 202) {
+                MessageShow("عملیات با موفقیت انجام شد ", result.resultMessage, "موفق",3000);
 
                 document.getElementById("forgot-password-form").style.display = "none";
                 document.getElementById("enter-verification-code-form").style.display = "block";
@@ -105,8 +107,8 @@ function changePassword() {
     })
         .then(response => response.json())
         .then(result => {
-            if (result.resultCode === 200) {
-                alert("Password changed successfully.");
+            if (result.resultCode === 204) {
+                MessageShow("عملیات با موفقیت انجام شد ", result.resultMessage, "موفق", 3000);
                 document.getElementById("login-form").style.display = "block";
                 document.getElementById("enter-verification-code-form").style.display = "none";
             } else {
@@ -151,10 +153,10 @@ function logoutUser() {
         .then(response => response.json())
         .then(data => {
             if (data.resultCode === 200) {
-                alert(data.resultMessage);
+                MessageShow("عملیات با موفقیت انجام شد ", result.resultMessage, "موفق", 3000);
                 window.location.href = "/Home/Index";
             } else {
-                alert("خطایی در خروج رخ داده است.");
+                MessageShow("خطای سرور", result.resultMessage, "error", 3000);
             }
         })
         .catch(error => {

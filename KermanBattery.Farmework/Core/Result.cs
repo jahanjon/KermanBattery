@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KermanBattery.Farmework.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,16 +54,5 @@ namespace RepresentativePanel.Domain.Core
         public int StatusCode { get; set; }
         public string Message { get; set; }
         public string Details { get; set; }
-    }
-    public class ResultInfo
-    {
-        public int Code { get; set; }
-        public string Message { get; set; }
-
-        public ResultInfo(int code, string message)
-        {
-            Code = code;
-            Message = message;
-        }
     }
 }

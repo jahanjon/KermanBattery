@@ -18,7 +18,7 @@ namespace RepresentativePanel.Web.Controllers
         {
             var result = await ApiService.PostData<Result<TokenResultDto>>(configuration["GlobalSettings:ApiUrl"], "Auth/Login", loginDto);
 
-            if (result.ResultCode == 200 && result.Value != null)
+            if (result.ResultCode == result.ResultCode && result.Value != null)
             {
 
                 Response.Cookies.Append("AuthToken", result.Value.Token, new CookieOptions
@@ -30,8 +30,8 @@ namespace RepresentativePanel.Web.Controllers
 
                 return Json(new
                 {
-                    resultCode = 200,
-                    resultMessage = "Login successful",
+                    resultCode = result.ResultCode,
+                    resultMessage = result.ResultMessage,
                     token = result.Value.Token
                 });
             }
@@ -53,12 +53,12 @@ namespace RepresentativePanel.Web.Controllers
                 dto
             );
 
-            if (result.ResultCode == 200)
+            if (result.ResultCode == result.ResultCode)
             {
                 return Json(new
                 {
-                    resultCode = 200,
-                    resultMessage = "Get Verification Code Successful",
+                    resultCode = result.ResultCode,
+                    resultMessage = result.ResultMessage,
                     Result = result
 
                 });
@@ -78,13 +78,13 @@ namespace RepresentativePanel.Web.Controllers
                 dto
             );
 
-            if (result.ResultCode == 200)
+            if (result.ResultCode == result.ResultCode)
             {
                 TempData["Message"] = result.ResultMessage;
                 return Json(new
                 {
-                    resultCode = 200,
-                    resultMessage = "Change Password Successful",
+                    resultCode = result.ResultCode,
+                    resultMessage = result.ResultMessage,
 
                 });
             }
@@ -110,14 +110,14 @@ namespace RepresentativePanel.Web.Controllers
             var authToken = Request.Cookies["AuthToken"];
             var result = await ApiService.GetData<Result<string>>(configuration["GlobalSettings:ApiUrl"], "Auth/LogOut", authToken);
 
-            if (result.ResultCode == 200)
+            if (result.ResultCode == result.ResultCode)
             {
 
                 Response.Cookies.Delete("AuthToken");
                 return Json(new
                 {
-                    resultCode = 200,
-                    resultMessage = "Logout successful"
+                    resultCode = result.ResultCode,
+                    resultMessage = result.ResultMessage
                 });
             }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using KermanBattery.Farmework.Core;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RepresentativePanel.Application.Contract.Seller;
@@ -28,17 +29,17 @@ namespace RepresentativePanel.WebApi.Controllers.Seller
 
             if (result == null)
             {
-                return Result<DashboardDto>.Failure(-400, "bad");
+                return Result<DashboardDto>.Failure(ResultInfo.SellerPhoneNumberNotFound);
             }
 
-            return Result<DashboardDto>.Success(200, "ok", result.Value);
+            return Result<DashboardDto>.Success(ResultInfo.OperationSuccess, result.Value);
         }
 
         private Result<string> GetSellerPhoneNumber()
         {
             var claims = User.Claims.ToList();
             var phoneNumber = claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.NameIdentifier))?.Value;
-            return Result<string>.Success(200, "Successfully fetched the phone number", phoneNumber);
+            return Result<string>.Success(ResultInfo.OperationSuccess, phoneNumber);
         }
 
         [HttpGet]
@@ -50,10 +51,10 @@ namespace RepresentativePanel.WebApi.Controllers.Seller
 
             if (result == null)
             {
-                return Result<DashboardDto>.Failure(-400, "badrequest");
+                return Result<DashboardDto>.Failure(ResultInfo.OperationFailed);
             }
 
-            return Result<DashboardDto>.Success(200, "ok", result.Value);
+            return Result<DashboardDto>.Success(ResultInfo.OperationSuccess, result.Value);
         }
 
         [HttpPost]
@@ -62,7 +63,7 @@ namespace RepresentativePanel.WebApi.Controllers.Seller
         {
             if (!ModelState.IsValid)
             {
-                return Result<bool>.Failure(-400, "BadRequest");
+                return Result<bool>.Failure(ResultInfo.NotFound);
             }
 
             var phoneNumber = GetSellerPhoneNumber().Value;

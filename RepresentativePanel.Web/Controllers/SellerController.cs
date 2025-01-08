@@ -30,7 +30,7 @@ namespace RepresentativePanel.Web.Controllers
                 authToken
             );
 
-            if (result.ResultCode == 200 && result.Value != null)
+            if (result.ResultCode == result.ResultCode && result.Value != null)
             {
                 return View(result.Value);
             }
@@ -84,15 +84,15 @@ namespace RepresentativePanel.Web.Controllers
             {
                 return Json(new
                 {
-                    resultCode = -401,
-                    resultMessage = "Operation failed"
+                    resultCode = result.ResultCode,
+                    resultMessage =result.ResultMessage
                 });
             }
 
             return Json(new
             {
-                resultCode = 200,
-                resultMessage = "Ok"
+                resultCode = result.ResultCode,
+                resultMessage = result.ResultMessage,
             });
         }
 

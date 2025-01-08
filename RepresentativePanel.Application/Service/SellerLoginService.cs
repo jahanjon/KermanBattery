@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RepresentativePanel.Application.Contract.Auth;
+using RepresentativePanel.Domain.Core;
 using RepresentativePanel.Domain.Entity.SellerAgg;
 using RepresentativePanel.Domain.Entity.SellerLogin;
 using RepresentativePanel.Domain.Repository;
@@ -18,7 +19,6 @@ namespace RepresentativePanel.Application.Service
             this.sellerLoginRepository = sellerLoginRepository;
             this.sellerRepository = sellerRepository;
         }
-        ///*********************** TODO RESULT ***************
         public async Task RecordLoginAsync(string phoneNumber, string ipAddress)
         {
 
