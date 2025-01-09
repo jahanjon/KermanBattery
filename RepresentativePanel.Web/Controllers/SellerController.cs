@@ -1,7 +1,10 @@
 ﻿using Azure.Core;
+using KermanBatterySeller.Web.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using RepresentativePanel.Application.Dto;
 using RepresentativePanel.Domain.Core;
+using RepresentativePanel.Domain.Enum;
 
 namespace RepresentativePanel.Web.Controllers
 {
@@ -95,6 +98,17 @@ namespace RepresentativePanel.Web.Controllers
                 resultMessage = result.ResultMessage,
             });
         }
+        public async Task<IActionResult> UserActivity()
+        {
+            var authToken = Request.Cookies["AuthToken"];
+            if (!await CheckUserAccess.IsUserHasAccess(authToken, Roles.Seller, configuration)) return RedirectToAction("Index", "Home");
 
+            var result = await ApiService.PostData<Result<bool>>(
+                           configuration["GlobalSettings:ApiUrl"],
+                           "Seller/UserActivity",
+                           authToken
+                       );
+            return View(result);
+        }
     }
 }

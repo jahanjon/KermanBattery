@@ -14,9 +14,9 @@ namespace RepresentativePanel.DataAccess.Repository
             this.sellerLogin = sellerLogin;
         }
 
-        public async Task<SellerLogin> GetActiveLoginAsync(string phoneNumber)
+        public async Task<SellerLogin> GetActiveLoginAsync(int sellerId)
         {
-            var result = await sellerLogin.Find(x => x.PhoneNumber == phoneNumber);
+            var result = await sellerLogin.Find(x => x.Id == sellerId);
             return result;
         }
     }

@@ -10,8 +10,8 @@ namespace RepresentativePanel.Application.Contract.Seller
 {
     public interface ISellerService
     {
-        Task<Result<DashboardDto>> GetSellerData(string phoneNumber);
-        Task<Result<DashboardDto>> UpdateProfileAsync(string phoneNumber);
+        Task<Result<DashboardDto>> GetSellerData(int sellerId);
+        Task<Result<DashboardDto>> UpdateProfileAsync(int sellerId);
         Task<Result<bool>> UpdateAndInsertProfile(DashboardDto dashboard);
     }
 }

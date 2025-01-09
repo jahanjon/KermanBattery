@@ -27,10 +27,10 @@ namespace RepresentativePanel.Application.Service
             this.mapper = mapper;
         }
 
-        public async Task<Result<DashboardDto>> GetSellerData(string phoneNumber)
+        public async Task<Result<DashboardDto>> GetSellerData(int sellerId)
         {
 
-            var seller = await sellerRepsoiotry.FindAsNoTracking(s => s.PhoneNumber == phoneNumber);
+            var seller = await sellerRepsoiotry.FindAsNoTracking(s => s.Id == sellerId);
 
             if (seller == null)
             {
@@ -48,11 +48,11 @@ namespace RepresentativePanel.Application.Service
             try
             {
 
-                var seller = await sellerRepsoiotry.Find(x => x.PhoneNumber == dashboardDto.PhoneNumber);
+                var seller = await sellerRepsoiotry.Find(x => x.Id == dashboardDto.SellerId);
 
                 if (seller == null)
                 {
-                    return Result<bool>.Failure(ResultInfo.SellerPhoneNumberNotFound);
+                    return Result<bool>.Failure(ResultInfo.SellerNotFound);
                 }
 
 
@@ -75,13 +75,13 @@ namespace RepresentativePanel.Application.Service
         }
 
 
-        public async Task<Result<DashboardDto>> UpdateProfileAsync(string phoneNumber)
+        public async Task<Result<DashboardDto>> UpdateProfileAsync(int sellerId)
         {
-            var seller = await sellerRepsoiotry.Find(x => x.PhoneNumber == phoneNumber);
+            var seller = await sellerRepsoiotry.Find(x => x.Id == sellerId);
 
             if (seller == null)
             {
-                return Result<DashboardDto>.Failure(ResultInfo.SellerPhoneNumberNotFound);
+                return Result<DashboardDto>.Failure(ResultInfo.SellerNotFound);
             }
 
             var dashboardDto = mapper.Map<DashboardDto>(seller);

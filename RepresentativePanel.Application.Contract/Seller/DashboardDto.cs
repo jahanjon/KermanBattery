@@ -8,6 +8,7 @@ namespace RepresentativePanel.Application.Dto
 {
     public class DashboardDto
     {
+        public int SellerId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

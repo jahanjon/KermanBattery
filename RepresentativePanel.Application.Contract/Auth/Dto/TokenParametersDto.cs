@@ -8,7 +8,7 @@ namespace RepresentativePanel.Application.Contract.Auth.Dto
 {
     public class TokenParametersDto
     {
-        public string PhoneNumber { get; set; }
+        public int Id { get; set; }
         public int Role { get; set; }
     }
 }

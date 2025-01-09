@@ -9,6 +9,6 @@ namespace RepresentativePanel.Application.Contract.Auth
     public interface ISellerLoginService
     {
         Task RecordLoginAsync(string phoneNumber, string ipAddress);
-        Task RecordLogoutAsync(string phoneNumber);
+        Task RecordLogoutAsync(int sellerId);
     }
 }

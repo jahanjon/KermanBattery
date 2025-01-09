@@ -73,6 +73,10 @@ namespace RepresentativePanel.Domain.Entity.SellerAgg
             Province = province;
             Address = address;
         }
-        #endregion 
+        public void ChangeRole(Roles role)
+        {
+            Role = role;
+        }
+        #endregion
     }
 }

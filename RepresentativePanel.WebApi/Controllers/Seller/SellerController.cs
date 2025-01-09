@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using RepresentativePanel.Application.Contract.Seller;
 using RepresentativePanel.Application.Dto;
 using RepresentativePanel.Domain.Core;
+using RepresentativePanel.Domain.Entity.SellerAgg;
 using System.Security.Claims;
 
 namespace RepresentativePanel.WebApi.Controllers.Seller
@@ -24,30 +25,43 @@ namespace RepresentativePanel.WebApi.Controllers.Seller
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<Result<DashboardDto>> Dashboard()
         {
-            var phoneNumber = GetSellerPhoneNumber().Value;
-            var result = await sellerService.GetSellerData(phoneNumber);
+            var sellerId = GetSellerUserId();
+            if (sellerId == 0)
+            {
+                return Result<DashboardDto>.Failure(ResultInfo.SellerNotFound);
+            }
+            var result = await sellerService.GetSellerData(sellerId);
 
             if (result == null)
             {
-                return Result<DashboardDto>.Failure(ResultInfo.SellerPhoneNumberNotFound);
+                return Result<DashboardDto>.Failure(ResultInfo.OperationFailed);
             }
 
             return Result<DashboardDto>.Success(ResultInfo.OperationSuccess, result.Value);
         }
 
-        private Result<string> GetSellerPhoneNumber()
+
+        #region GetUserInToken
+        private int GetSellerUserId()
         {
             var claims = User.Claims.ToList();
-            var phoneNumber = claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.NameIdentifier))?.Value;
-            return Result<string>.Success(ResultInfo.OperationSuccess, phoneNumber);
+            var userIdClaim = claims.FirstOrDefault(x => x.Type.Equals("UserId"))?.Value;
+
+            return int.TryParse(userIdClaim, out int userId) ? userId : 0;
         }
+        #endregion
+
 
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<Result<DashboardDto>> PersonalInformation()
         {
-            var phoneNumber = GetSellerPhoneNumber().Value;
-            var result = await sellerService.UpdateProfileAsync(phoneNumber);
+            var sellerId = GetSellerUserId();
+            if (sellerId == 0)
+            {
+                return Result<DashboardDto>.Failure(ResultInfo.SellerNotFound);
+            }
+            var result = await sellerService.UpdateProfileAsync(sellerId);
 
             if (result == null)
             {
@@ -66,13 +80,23 @@ namespace RepresentativePanel.WebApi.Controllers.Seller
                 return Result<bool>.Failure(ResultInfo.NotFound);
             }
 
-            var phoneNumber = GetSellerPhoneNumber().Value;
-            dashboardDto.PhoneNumber = phoneNumber;
+            var sellerId = GetSellerUserId();
+            if (sellerId == 0)
+            {
+                return Result<bool>.Failure(ResultInfo.SellerNotFound);
+            }
+            dashboardDto.SellerId = sellerId;
             var result = await sellerService.UpdateAndInsertProfile(dashboardDto);
 
             return result;
         }
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<Result<Seller>> UserActivity([FromBody] int userId)
+        {
+           
+            var result = sellerService.GetSellerData(userId);
 
-
+        }
     }
 }

@@ -48,9 +48,9 @@ namespace RepresentativePanel.Application.Service
 
 
 
-        public async Task RecordLogoutAsync(string phoneNumber)
+        public async Task RecordLogoutAsync(int sellerId)
         {
-            var activeLogin = await sellerLoginRepository.GetActiveLoginAsync(phoneNumber);
+            var activeLogin = await sellerLoginRepository.GetActiveLoginAsync(sellerId);
 
             if (activeLogin == null)
             {

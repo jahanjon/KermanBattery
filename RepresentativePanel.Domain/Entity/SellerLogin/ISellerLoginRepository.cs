@@ -8,6 +8,6 @@ namespace RepresentativePanel.Domain.Entity.SellerLogin
 {
     public interface ISellerLoginRepository 
     {
-        Task<SellerLogin> GetActiveLoginAsync(string phoneNumber);
+        Task<SellerLogin> GetActiveLoginAsync(int sellerId);
     }
 }

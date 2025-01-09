@@ -19,10 +19,11 @@ namespace RepresentativePanel.Application.Service
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
-              {
-             new Claim(ClaimTypes.NameIdentifier, tokenParameters.PhoneNumber),
-             new Claim(ClaimTypes.Role, Convert.ToString(tokenParameters.Role)),
-              }),
+            {
+                
+                new Claim("UserId", tokenParameters.Id.ToString()),
+                new Claim(ClaimTypes.Role, Convert.ToString(tokenParameters.Role)),
+            }),
                 Expires = DateTime.UtcNow.AddMonths(2),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };

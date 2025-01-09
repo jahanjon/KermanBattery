@@ -2,6 +2,7 @@
 using RepresentativePanel.Application.Contract.Auth;
 using RepresentativePanel.Application.Contract.Auth.Dto;
 using RepresentativePanel.Application.Contract.Seller;
+using RepresentativePanel.DataAccess.Repository;
 using RepresentativePanel.Domain.Core;
 using RepresentativePanel.Domain.Entity.SellerAgg;
 using RepresentativePanel.Domain.Enum;
@@ -60,7 +61,7 @@ namespace RepresentativePanel.Application.Service
 
             var tokenParameters = new TokenParametersDto
             {
-                PhoneNumber = user.PhoneNumber,
+                Id = user.Id,
                 Role = (int)user.Role,
             };
 
@@ -71,7 +72,7 @@ namespace RepresentativePanel.Application.Service
                 Token = token
             };
 
-            return Result<TokenResultDto>.Success(ResultInfo.LoginSuccess,loginDtoResult);
+            return Result<TokenResultDto>.Success(ResultInfo.LoginSuccess, loginDtoResult);
         }
 
         public async Task<Result<string>> ChangePassword(ChangePasswordDto changePasswordDto)
@@ -80,7 +81,7 @@ namespace RepresentativePanel.Application.Service
 
             if (user == null)
             {
-                return  Result<string>.Failure(ResultInfo.UserPhoneNumberNotFound);
+                return Result<string>.Failure(ResultInfo.UserPhoneNumberNotFound);
             }
 
             if (!user.ValidateOtpCode(changePasswordDto.VerificationCode))
@@ -114,5 +115,23 @@ namespace RepresentativePanel.Application.Service
             return Result<string>.Success(ResultInfo.ConfirmationCodeGenerated);
         }
 
+        public async Task<Result<bool>> ChangeRoleToAdminKP(int userId)
+        {
+
+            var seller = await selllerRepsoitory.Find(x => x.Id == userId);
+
+            if (seller == null)
+            {
+                return Result<bool>.Failure(ResultInfo.SellerNotFound);
+            }
+
+
+            seller.ChangeRole(Roles.Admin);
+
+
+            await selllerRepsoitory.Update(seller);
+
+            return Result<bool>.Success(ResultInfo.OperationSuccess);
+        }
     }
 }

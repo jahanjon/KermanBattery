@@ -13,5 +13,6 @@ namespace RepresentativePanel.Application.Contract.Auth
         Task<Result<TokenResultDto>> Login(LoginDto loginDto, string jwtKey);
         Task<Result<string>> ChangePassword(ChangePasswordDto changePasswordDto);
         Task<Result<string>> GetVerificationCode(GetverificationCodeDto getverification);
+        Task<Result<bool>> ChangeRoleToAdminKP(int userId);
     }
 }

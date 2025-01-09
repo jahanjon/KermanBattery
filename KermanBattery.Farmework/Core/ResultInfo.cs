@@ -33,7 +33,7 @@ namespace KermanBattery.Farmework.Core
         public static ResultInfo OperationFailed => new ResultInfo(409, "عملیات با مشکل مواجه شده است. لطفاً دوباره امتحان کنید");
         public static ResultInfo UserPhoneNumberNotFound => new ResultInfo(410, "کاربری با این شماره تلفن یافت نشد");
         public static ResultInfo InvalidOrExpiredConfirmationCode => new ResultInfo(411, "کد تأیید نامعتبر یا منقضی شده است");
-        public static ResultInfo SellerPhoneNumberNotFound => new ResultInfo(412, "نماینده با این شماره تلفن وجود ندارد");
+        public static ResultInfo SellerNotFound => new ResultInfo(412, "نماینده وجود ندارد,لطفا با پشتیبانی تماس بگیرید");
         public static ResultInfo FailedUpdate => new ResultInfo(413, "ویرایش انجام نشد لطفا مجدد تلاش کنید");
 
 

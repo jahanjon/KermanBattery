@@ -151,8 +151,8 @@ function logoutUser() {
         }
     })
         .then(response => response.json())
-        .then(data => {
-            if (data.resultCode === 200) {
+        .then(result => {
+            if (result.resultCode === 205) {
                 MessageShow("عملیات با موفقیت انجام شد ", result.resultMessage, "موفق", 3000);
                 window.location.href = "/Home/Index";
             } else {

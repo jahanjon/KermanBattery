@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using RepresentativePanel.Application.Contract.Auth;
 using RepresentativePanel.Application.Contract.Auth.Dto;
 using RepresentativePanel.Domain.Core;
-using System.Security.Claims;
+using RepresentativePanel.Domain.Enum;
+using RepresentativePanel.Domain.Repository;
 
 namespace RepresentativePanel.WebApi.Controllers.Auth
 {
@@ -50,28 +51,50 @@ namespace RepresentativePanel.WebApi.Controllers.Auth
             var result = await authDataService.ChangePassword(dto);
             return result;
         }
-        private Result<string> GetSellerPhoneNumber()
+        private int GetSellerUserId()
         {
             var claims = User.Claims.ToList();
-            var phoneNumber = claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.NameIdentifier))?.Value;
-            return Result<string>.Success(ResultInfo.OperationSuccess, phoneNumber);
-        }
+            var userIdClaim = claims.FirstOrDefault(x => x.Type.Equals("UserId"))?.Value;
 
+            return int.TryParse(userIdClaim, out int userId) ? userId : 0;
+        }
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<Result<string>> LogOut()
         {
 
-            var phoneNumber = GetSellerPhoneNumber()?.Value;
-            if (string.IsNullOrEmpty(phoneNumber))
+            var sellerId = GetSellerUserId();
+            if (sellerId == 0)
             {
-                return Result<string>.Failure(ResultInfo.SellerPhoneNumberNotFound);
+                return Result<string>.Failure(ResultInfo.SellerNotFound);
             }
 
-            await sellerLoginService.RecordLogoutAsync(phoneNumber);
+            await sellerLoginService.RecordLogoutAsync(sellerId);
             return Result<string>.Success(ResultInfo.LogoutSuccess);
         }
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<Result<bool>> ChangeRoleToAdminKP()
+        {
+            var getUserId = GetSellerUserId();
+            if (getUserId == 0)
+            {
+                return Result<bool>.Failure(ResultInfo.SellerNotFound);
+            }
+            var result = await authDataService.ChangeRoleToAdminKP(getUserId);
+            return Result<bool>.Success(ResultInfo.OperationSuccess);
 
+        }
+
+        //[HttpPost]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //public async Task<IActionResult> ChangeRoleToUserKP(string nn)
+        //{
+        //    var x = await _db.Users.FirstOrDefaultAsync(x => x.NationalNumber == nn);
+        //    x.Role = Domain.Role.Admin;
+        //    await _db.SaveChangesAsync();
+        //    return Ok("KP... Why are you...? mista..");
     }
-
 }
+
+

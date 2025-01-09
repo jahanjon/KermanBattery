@@ -101,8 +101,8 @@ function logoutUser() {
         }
     })
         .then(response => response.json())
-        .then(data => {
-            if (data.resultCode === 200) {
+        .then(result => {
+            if (result.resultCode === 205) {
                 MessageShow("عملیات با موفقیت انجام شد ", result.resultMessage, "موفق", 3000);
                 window.location.href = "/Home/Index";
             } else {
@@ -114,3 +114,26 @@ function logoutUser() {
         });
 }
 //-------------ChangePassword&LogOut-------------//
+
+function changeRoleToAdmin() {
+    if (confirm("آیا مطمئن هستید که می‌خواهید نقش کاربر را به ادمین تغییر دهید؟")) {
+        fetch('/Auth/ChangeAdmin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.resultMessage);
+                if (data.resultCode === "Success") {
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                alert("خطا در ارسال درخواست.");
+                console.error(error);
+            });
+    }
+}
