@@ -1,5 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using KermanBattery.Farmework.Core;
+using KermanBatterySeller.Application.Contract.Auth.Dto;
+using Microsoft.EntityFrameworkCore;
 using RepresentativePanel.Application.Contract.Auth;
+using RepresentativePanel.DataAccess.Repository;
 using RepresentativePanel.Domain.Core;
 using RepresentativePanel.Domain.Entity.SellerAgg;
 using RepresentativePanel.Domain.Entity.SellerLogin;
@@ -12,12 +16,14 @@ namespace RepresentativePanel.Application.Service
         private readonly IGenericRepository<SellerLogin> sellerLoginService;
         private readonly IGenericRepository<Seller> sellerRepository;
         private readonly ISellerLoginRepository sellerLoginRepository;
+        private readonly IMapper mapper;
 
-        public SellerLoginService(IGenericRepository<SellerLogin> sellerLoginService, ISellerLoginRepository sellerLoginRepository, IGenericRepository<Seller> sellerRepository)
+        public SellerLoginService(IGenericRepository<SellerLogin> sellerLoginService, ISellerLoginRepository sellerLoginRepository, IGenericRepository<Seller> sellerRepository, IMapper mapper)
         {
             this.sellerLoginService = sellerLoginService;
             this.sellerLoginRepository = sellerLoginRepository;
             this.sellerRepository = sellerRepository;
+            this.mapper = mapper;
         }
         public async Task RecordLoginAsync(string phoneNumber, string ipAddress)
         {
@@ -60,5 +66,23 @@ namespace RepresentativePanel.Application.Service
             activeLogin.SetLogoutTime();
             await sellerLoginService.Update(activeLogin);
         }
+
+        public async Task<Result<List<SellerLoginDto>>> SellerActivity()
+        {
+
+            var sellerLogins = await sellerLoginService.GetAllAsNoTracking();
+
+            if (!sellerLogins.Any())
+            {
+                return Result<List<SellerLoginDto>>.Failure(ResultInfo.OperationFailed);
+            }
+
+
+            var sellerLoginDtos = sellerLogins.Select(sl => mapper.Map<SellerLoginDto>(sl)).ToList();
+
+            return Result<List<SellerLoginDto>>.Success(ResultInfo.OperationSuccess, sellerLoginDtos);
+        }
+
+
     }
 }

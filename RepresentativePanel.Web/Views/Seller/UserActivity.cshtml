@@ -1,0 +1,27 @@
+﻿@using KermanBatterySeller.Application.Contract.Auth.Dto
+@model List<SellerLoginDto>
+
+
+<h2>تاریخچه ورود کاربران</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>شماره تلفن</th>
+            <th>زمان ورود</th>
+            <th>زمان خروج</th>
+            <th>آی‌پی آدرس</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var login in Model)
+        {
+            <tr>
+                <td>@login.PhoneNumber</td>
+                <td>@login.LoginTime.ToString("yyyy/MM/dd HH:mm")</td>
+                <td>@(login.LogoutTime?.ToString("yyyy/MM/dd HH:mm") ?? "در حال حاضر")</td>
+                <td>@login.IpAddress</td>
+            </tr>
+        }
+    </tbody>
+</table>

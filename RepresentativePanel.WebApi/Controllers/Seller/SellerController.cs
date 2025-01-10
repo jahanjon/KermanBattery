@@ -1,9 +1,12 @@
 ﻿using KermanBattery.Farmework.Core;
+using KermanBatterySeller.Application.Contract.Auth.Dto;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RepresentativePanel.Application.Contract.Auth;
 using RepresentativePanel.Application.Contract.Seller;
 using RepresentativePanel.Application.Dto;
+using RepresentativePanel.Application.Service;
 using RepresentativePanel.Domain.Core;
 using RepresentativePanel.Domain.Entity.SellerAgg;
 using System.Security.Claims;
@@ -15,10 +18,12 @@ namespace RepresentativePanel.WebApi.Controllers.Seller
     public class SellerController : ControllerBase
     {
         private readonly ISellerService sellerService;
+        private readonly ISellerLoginService sellerLoginService;
 
-        public SellerController(ISellerService sellerService)
+        public SellerController(ISellerService sellerService, ISellerLoginService sellerLoginService)
         {
             this.sellerService = sellerService;
+            this.sellerLoginService = sellerLoginService;
         }
 
         [HttpGet]
@@ -92,11 +97,11 @@ namespace RepresentativePanel.WebApi.Controllers.Seller
         }
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<Result<Seller>> UserActivity([FromBody] int userId)
+        public async Task<Result<List<SellerLoginDto>>> UserActivity()
         {
-           
-            var result = sellerService.GetSellerData(userId);
-
+            var result = await sellerLoginService.SellerActivity();
+            return result;
         }
+
     }
 }

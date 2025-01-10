@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepresentativePanel.DataAccess.Persistence;
 
@@ -11,9 +12,11 @@ using RepresentativePanel.DataAccess.Persistence;
 namespace KermanBatterySeller.Infrastructure.Migrations
 {
     [DbContext(typeof(KermanBatterySellerContext))]
-    partial class KermanBatterySellerContextModelSnapshot : ModelSnapshot
+    [Migration("20250110070926_AddNewTabelPRoduct")]
+    partial class AddNewTabelPRoduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

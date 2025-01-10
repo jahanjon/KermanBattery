@@ -26,4 +26,8 @@
     <ProjectReference Include="..\RepresentativePanel.DataAccess\KermanBatterySeller.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Shared\" />
+  </ItemGroup>
+
 </Project>

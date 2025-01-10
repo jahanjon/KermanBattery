@@ -1,4 +1,5 @@
 ﻿using KermanBattery.Farmework.Infrastructure;
+using KermanBatterySeller.Infrastructure.Mapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -64,6 +65,7 @@ namespace RepresentativePanel.Configuration
         public static void RegisterMapperProfiles(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(DashbordProfile));
+            services.AddAutoMapper(typeof(SellerLoginProfile));
         }
     }
 }

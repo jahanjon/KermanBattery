@@ -1,5 +1,5 @@
 ﻿using Azure.Core;
-using KermanBatterySeller.Web.Controllers;
+using KermanBatterySeller.Application.Contract.Auth.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using RepresentativePanel.Application.Dto;
@@ -101,14 +101,21 @@ namespace RepresentativePanel.Web.Controllers
         public async Task<IActionResult> UserActivity()
         {
             var authToken = Request.Cookies["AuthToken"];
-            if (!await CheckUserAccess.IsUserHasAccess(authToken, Roles.Seller, configuration)) return RedirectToAction("Index", "Home");
 
-            var result = await ApiService.PostData<Result<bool>>(
-                           configuration["GlobalSettings:ApiUrl"],
-                           "Seller/UserActivity",
-                           authToken
-                       );
-            return View(result);
+            var result = await ApiService.GetData<Result<List<SellerLoginDto>>>(
+                            configuration["GlobalSettings:ApiUrl"],
+                            "Seller/UserActivity",
+                            authToken
+                        );
+
+            if (result == null || result.ResultCode != 200)
+            {
+                TempData["Message"] = "خطا در بازیابی داده‌ها.";
+                return View(new List<SellerLoginDto>());
+            }
+
+            return View(result.Value);
         }
+
     }
 }
