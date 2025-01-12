@@ -1,17 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KBA.Framework.Core;
+using KBA.SellerApplication.Contract.Auth;
+using KBA.SellerApplication.Contract.Auth.Dto;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using RepresentativePanel.Application.Contract.Auth;
-using RepresentativePanel.Application.Contract.Auth.Dto;
-using RepresentativePanel.Domain.Core;
-using RepresentativePanel.Domain.Entity.SellerAgg;
+using KBA.Domain.Entity.SellerAgg;
 using RepresentativePanel.WebApi.Controllers.Auth;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace KermanBatterSeller.UnitTest.TestAuth
 {

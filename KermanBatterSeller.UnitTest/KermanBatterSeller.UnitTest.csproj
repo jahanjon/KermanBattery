@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -17,10 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RepresentativePanel.Application.Contract\KermanBatterySeller.Application.Contract.csproj" />
-    <ProjectReference Include="..\RepresentativePanel.Domain\KermanBatterySeller.Domain.csproj" />
-    <ProjectReference Include="..\RepresentativePanel.WebApi\KermanBatterySeller.WebApi.csproj" />
-    <ProjectReference Include="..\RepresentativePanel.Web\KermanBatterySeller.Web.csproj" />
+    <ProjectReference Include="..\KBA.Domain\KBA.Domain.csproj" />
+    <ProjectReference Include="..\KBA.SellerApplication.Contract\KBA.SellerApplication.Contract.csproj" />
+    <ProjectReference Include="..\KBA.SellerWebApi\KBA.SellerWebApi.csproj" />
+    <ProjectReference Include="..\RepresentativePanel.WebApi\KBA.SellerWebApi.csproj" />
+    <ProjectReference Include="..\RepresentativePanel.Web\KBA.SellerWeb.csproj" />
   </ItemGroup>
 
   <ItemGroup>

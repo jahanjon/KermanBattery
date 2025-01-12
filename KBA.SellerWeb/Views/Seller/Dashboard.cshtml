@@ -1,0 +1,83 @@
+﻿@using KBA.SellerApplication.Contract.Seller
+@model DashboardDto
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+@section Css {
+    <link rel="stylesheet" href="~/css/Internal/Dashboard.css">
+}
+<div class="dashboard-container">
+
+    <div class="profile-section">
+        <div class="profile-image">
+            <img src="/path/to/default-profile.png" alt="Profile Picture" />
+        </div>
+        <div class="profile-details">
+            <h3>@Model.FirstName @Model.LastName</h3>
+            <p>کد نمایندگی: @Model.NationalNumber</p>
+            <p>استان: @Model.Province</p>
+            <p>شهر: @Model.City</p>
+            <p>شماره تماس: @Model.PhoneNumber</p>
+        </div>
+        <div class="profile-actions">
+            <button onclick="showChangePasswordModal()">تغییر رمز عبور</button> |
+            <button onclick="logoutUser()">خروج</button>
+        </div>
+    </div>
+
+    <!-- بخش منوها -->
+    <div class="menu-section">
+        <div class="menu-item">
+            <a href="/NewOrder">
+                <span>ثبت سفارش جدید</span>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="/BatteryList">
+                <span>لیست باتری‌ها</span>
+            </a>
+        </div> 
+        <div class="menu-item">
+            <a href="javascript:void(0);" onclick="changeRoleToAdmin()">
+                <span>Change user to admin</span>
+            </a>
+        </div>
+        <div class="menu-item" id="user-activity-menu">
+            <a href="@Url.Action("UserActivity", "Seller")">
+                <span>فعالیت کاربران</span>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="@Url.Action("PersonalInformation", "Seller")">داشبورد</a>
+        </div>
+
+    </div>
+</div>
+<div id="changePasswordModal" class="modal" style="display:none">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="changePasswordStep1">
+            <h3>تغییر رمز عبور</h3>
+            <label for="forgot-phone">شماره تلفن:</label>
+            <input type="text" id="forgot-phone" placeholder="شماره تلفن خود را وارد کنید" />
+            <button onclick="sendVerificationCode()">ارسال کد تایید</button>
+        </div>
+        
+        <div id="changePasswordStep3" style="display:none;">
+            <h3>تغییر رمز عبور جدید</h3>
+            <label for="verification-code">کد تایید:</label>
+            <input type="text" id="verification-code" placeholder="کد تایید را وارد کنید" />
+            <label for="new-password">رمز عبور جدید:</label>
+            <input type="password" id="new-password" placeholder="رمز عبور جدید" />
+            <label for="confirm-password">تکرار رمز عبور:</label>
+            <input type="password" id="confirm-password" placeholder="تکرار رمز عبور" />
+            <button onclick="changePassword()">تغییر رمز عبور</button>
+        </div>
+    </div>
+</div>
+
+@section Script {
+    <script src="/js/internal/dashboard.js"></script>
+    <script src="/js/internal/messageShow.js"></script>
+}
