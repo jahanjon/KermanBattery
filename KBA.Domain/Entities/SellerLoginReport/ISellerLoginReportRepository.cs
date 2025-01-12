@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace KBA.Domain.Entity.SellerLogin
 {
-    public interface ISellerLoginRepository 
+    public interface ISellerLoginReportRepository 
     {
-        Task<SellerLogin> GetActiveLoginAsync(int sellerId);
+        Task<SellerLoginReport> GetActiveLoginAsync(int sellerId);
     }
 }

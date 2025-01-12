@@ -11,12 +11,12 @@ namespace KBA.SellerApplication.Service
 {
     public class SellerLoginService : ISellerLoginService
     {
-        private readonly IGenericRepository<SellerLogin> sellerLoginService;
+        private readonly IGenericRepository<SellerLoginReport> sellerLoginService;
         private readonly IGenericRepository<Seller> sellerRepository;
-        private readonly ISellerLoginRepository sellerLoginRepository;
+        private readonly ISellerLoginReportRepository sellerLoginRepository;
         private readonly IMapper mapper;
 
-        public SellerLoginService(IGenericRepository<SellerLogin> sellerLoginService, ISellerLoginRepository sellerLoginRepository, IGenericRepository<Seller> sellerRepository, IMapper mapper)
+        public SellerLoginService(IGenericRepository<SellerLoginReport> sellerLoginService, ISellerLoginReportRepository sellerLoginRepository, IGenericRepository<Seller> sellerRepository, IMapper mapper)
         {
             this.sellerLoginService = sellerLoginService;
             this.sellerLoginRepository = sellerLoginRepository;
@@ -43,7 +43,7 @@ namespace KBA.SellerApplication.Service
                 else
                 {
 
-                    var newLogin = new SellerLogin(phoneNumber, ipAddress, getSeller.Id);
+                    var newLogin = new SellerLoginReport(phoneNumber, ipAddress, getSeller.Id);
                     await sellerLoginService.Insert(newLogin);
                 }
             }

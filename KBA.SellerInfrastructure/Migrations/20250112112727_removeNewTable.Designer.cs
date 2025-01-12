@@ -4,6 +4,7 @@ using KBA.SellerInfrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KBA.SellerInfrastructure.Migrations
 {
     [DbContext(typeof(KermanBatterySellerContext))]
-    partial class KermanBatterySellerContextModelSnapshot : ModelSnapshot
+    [Migration("20250112112727_removeNewTable")]
+    partial class removeNewTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

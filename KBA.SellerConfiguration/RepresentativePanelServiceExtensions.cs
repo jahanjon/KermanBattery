@@ -24,7 +24,7 @@ namespace KBA.SellerConfiguration
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IAuthDataService, AuthDataService>();
             services.AddTransient<ISellerService,SellerService>();
-            services.AddTransient<ISellerLoginRepository,SellerLoginRepository>();
+            services.AddTransient<ISellerLoginReportRepository,SellerLoginRepository>();
             services.AddTransient<ISellerLoginService,SellerLoginService>();
         }
         public static void RegisterRepositories(this IServiceCollection services)

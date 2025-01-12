@@ -28,7 +28,7 @@ namespace KBA.Domain.Entity.SellerAgg
         public Roles Role { get; private set; }
 
         #region Relation
-        public ICollection<KBA.Domain.Entity.SellerLogin.SellerLogin> SellerLogins { get; private set; }
+        public ICollection<KBA.Domain.Entity.SellerLogin.SellerLoginReport> SellerLogins { get; private set; }
         #endregion
 
         #region Constructor

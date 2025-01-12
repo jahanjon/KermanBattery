@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KBA.Farmework\KBA.Farmework.csproj" />
-    <ProjectReference Include="..\RepresentativePanel.Application.Contract\KBA.SellerApplication.Contract.csproj" />
   </ItemGroup>
 
 </Project>

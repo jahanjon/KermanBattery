@@ -114,26 +114,3 @@ function logoutUser() {
         });
 }
 //-------------ChangePassword&LogOut-------------//
-
-function changeRoleToAdmin() {
-    if (confirm("آیا مطمئن هستید که می‌خواهید نقش کاربر را به ادمین تغییر دهید؟")) {
-        fetch('/Auth/ChangeAdmin', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-
-        })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.resultMessage);
-                if (data.resultCode === "Success") {
-                    location.reload();
-                }
-            })
-            .catch(error => {
-                alert("خطا در ارسال درخواست.");
-                console.error(error);
-            });
-    }
-}

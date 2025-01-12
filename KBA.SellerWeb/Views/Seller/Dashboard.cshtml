@@ -21,8 +21,8 @@
             <p>شماره تماس: @Model.PhoneNumber</p>
         </div>
         <div class="profile-actions">
-            <button onclick="showChangePasswordModal()">تغییر رمز عبور</button> |
-            <button onclick="logoutUser()">خروج</button>
+            <button class="btn btn-primary" onclick="showChangePasswordModal()">تغییر رمز عبور</button> |
+            <button class="btn btn-secondary" onclick="logoutUser()">خروج</button>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
             <a href="/BatteryList">
                 <span>لیست باتری‌ها</span>
             </a>
-        </div> 
+        </div>
         <div class="menu-item">
             <a href="javascript:void(0);" onclick="changeRoleToAdmin()">
                 <span>Change user to admin</span>
@@ -51,28 +51,30 @@
         <div class="menu-item">
             <a href="@Url.Action("PersonalInformation", "Seller")">داشبورد</a>
         </div>
-
     </div>
 </div>
-<div id="changePasswordModal" class="modal" style="display:none">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div id="changePasswordStep1">
-            <h3>تغییر رمز عبور</h3>
-            <label for="forgot-phone">شماره تلفن:</label>
-            <input type="text" id="forgot-phone" placeholder="شماره تلفن خود را وارد کنید" />
-            <button onclick="sendVerificationCode()">ارسال کد تایید</button>
-        </div>
-        
-        <div id="changePasswordStep3" style="display:none;">
-            <h3>تغییر رمز عبور جدید</h3>
-            <label for="verification-code">کد تایید:</label>
-            <input type="text" id="verification-code" placeholder="کد تایید را وارد کنید" />
-            <label for="new-password">رمز عبور جدید:</label>
-            <input type="password" id="new-password" placeholder="رمز عبور جدید" />
-            <label for="confirm-password">تکرار رمز عبور:</label>
-            <input type="password" id="confirm-password" placeholder="تکرار رمز عبور" />
-            <button onclick="changePassword()">تغییر رمز عبور</button>
+
+<div id="changePasswordModal" class="modal fade" style="display:none">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="changePasswordStep1">
+                <h3>تغییر رمز عبور</h3>
+                <label for="forgot-phone">شماره تلفن:</label>
+                <input type="text" id="forgot-phone" placeholder="شماره تلفن خود را وارد کنید" />
+                <button class="btn btn-primary" onclick="sendVerificationCode()">ارسال کد تایید</button>
+            </div>
+
+            <div id="changePasswordStep3" style="display:none;">
+                <h3>تغییر رمز عبور جدید</h3>
+                <label for="verification-code">کد تایید:</label>
+                <input type="text" id="verification-code" placeholder="کد تایید را وارد کنید" />
+                <label for="new-password">رمز عبور جدید:</label>
+                <input type="password" id="new-password" placeholder="رمز عبور جدید" />
+                <label for="confirm-password">تکرار رمز عبور:</label>
+                <input type="password" id="confirm-password" placeholder="تکرار رمز عبور" />
+                <button class="btn btn-success" onclick="changePassword()">تغییر رمز عبور</button>
+            </div>
         </div>
     </div>
 </div>

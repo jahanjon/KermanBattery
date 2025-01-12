@@ -127,33 +127,5 @@ namespace RepresentativePanel.Web.Controllers
                 resultMessage = result.ResultMessage ?? "Logout failed"
             });
         }
-        [HttpPost]
-        public async Task<IActionResult> ChangeAdmin()
-        {
-            var authToken = Request.Cookies["AuthToken"];
-
-            var result = await ApiService.GetData<Result<bool>>(
-                configuration["GlobalSettings:ApiUrl"],
-                "Auth/ChangeRoleToAdminKP",
-                authToken
-            );
-
-            if (result.ResultCode == 200)
-            {
-                TempData["Message"] = "نقش کاربر با موفقیت به ادمین تغییر یافت.";
-            }
-            else
-            {
-                TempData["Message"] = "خطا در تغییر نقش کاربر.";
-            }
-
-            return Json(new
-            {
-                resultCode = result.ResultCode,
-                resultMessage = result.ResultMessage,
-            });
-        }
-
-
     }
 }

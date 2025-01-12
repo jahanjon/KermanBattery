@@ -112,24 +112,5 @@ namespace KBA.SellerApplication.Service
 
             return Result<string>.Success(ResultInfo.ConfirmationCodeGenerated);
         }
-
-        public async Task<Result<bool>> ChangeRoleToAdminKP(int userId)
-        {
-
-            var seller = await selllerRepsoitory.Find(x => x.Id == userId);
-
-            if (seller == null)
-            {
-                return Result<bool>.Failure(ResultInfo.SellerNotFound);
-            }
-
-
-            seller.ChangeRole(Roles.Admin);
-
-
-            await selllerRepsoitory.Update(seller);
-
-            return Result<bool>.Success(ResultInfo.OperationSuccess);
-        }
     }
 }

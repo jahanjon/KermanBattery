@@ -70,28 +70,6 @@ namespace RepresentativePanel.WebApi.Controllers.Auth
             await sellerLoginService.RecordLogoutAsync(sellerId);
             return Result<string>.Success(ResultInfo.LogoutSuccess);
         }
-        [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<Result<bool>> ChangeRoleToAdminKP()
-        {
-            var getUserId = GetSellerUserId();
-            if (getUserId == 0)
-            {
-                return Result<bool>.Failure(ResultInfo.SellerNotFound);
-            }
-            var result = await authDataService.ChangeRoleToAdminKP(getUserId);
-            return Result<bool>.Success(ResultInfo.OperationSuccess);
-
-        }
-
-        //[HttpPost]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        //public async Task<IActionResult> ChangeRoleToUserKP(string nn)
-        //{
-        //    var x = await _db.Users.FirstOrDefaultAsync(x => x.NationalNumber == nn);
-        //    x.Role = Domain.Role.Admin;
-        //    await _db.SaveChangesAsync();
-        //    return Ok("KP... Why are you...? mista..");
     }
 }
 

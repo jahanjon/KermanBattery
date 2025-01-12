@@ -8,7 +8,7 @@ namespace KBA.SellerInfrastructure.Mapper
     {
         public SellerLoginProfile()
         {
-            CreateMap<SellerLogin, SellerLoginDto>().ReverseMap();
+            CreateMap<SellerLoginReport, SellerLoginDto>().ReverseMap();
         }
     }
 }

@@ -9,9 +9,9 @@ using KBA.Domain.Entity.SellerLogin;
 
 namespace KBA.SellerInfrastructure.Mapping
 {
-    public class SellerLoginConfiguration : IEntityTypeConfiguration<SellerLogin>
+    public class SellerLoginReportConfiguration : IEntityTypeConfiguration<SellerLoginReport>
     {
-        public void Configure(EntityTypeBuilder<SellerLogin> builder)
+        public void Configure(EntityTypeBuilder<SellerLoginReport> builder)
         {
             builder.ToTable("UserLogins");
 
