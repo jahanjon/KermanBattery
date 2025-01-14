@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using KBA.SellerApplication.Contract.Seller;
 using KBA.Domain.Entity.SellerAgg;
+using KBA.SellerApplication.Contract.Seller;
 
 namespace KBA.SellerInfrastructure.Mapper
 {

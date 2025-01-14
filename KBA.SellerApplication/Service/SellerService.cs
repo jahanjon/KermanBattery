@@ -34,12 +34,12 @@ namespace KBA.SellerApplication.Service
         }
 
 
-        public async Task<Result<bool>> UpdateAndInsertProfile(DashboardDto dashboardDto)
+        public async Task<Result<bool>> UpdateAndInsertProfile(DashboardDto dashboardDto,int sellerId)
         {
             try
             {
 
-                var seller = await sellerRepsoiotry.Find(x => x.Id == dashboardDto.SellerId);
+                var seller = await sellerRepsoiotry.Find(x => x.Id == sellerId);
 
                 if (seller == null)
                 {
@@ -47,7 +47,8 @@ namespace KBA.SellerApplication.Service
                 }
 
 
-                seller.UpdateProfile(dashboardDto.Title, dashboardDto.Province, dashboardDto.Address);
+                seller.UpdateProfile(dashboardDto.FirstName,dashboardDto.LastName,dashboardDto.Email,dashboardDto.NationalNumber,dashboardDto.PhoneNumber,dashboardDto.Gender,
+                    dashboardDto.Title,dashboardDto.Province,dashboardDto.Address,dashboardDto.City,dashboardDto.Description,dashboardDto.Grade);
 
 
                 var updateResult = await sellerRepsoiotry.Update(seller);

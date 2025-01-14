@@ -149,11 +149,6 @@ namespace KBA.SellerInfrastructure.Migrations
                     b.Property<DateTime?>("LogoutTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
                     b.Property<int>("SellerId")
                         .HasColumnType("int");
 

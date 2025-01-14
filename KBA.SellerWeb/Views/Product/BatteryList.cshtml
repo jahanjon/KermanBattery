@@ -1,0 +1,35 @@
+﻿@using KBA.SellerApplication.Contract.Product.ViewModel
+@model List<BatteryViewModel>
+
+<h2>لیست باتری‌ها</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>هیچ باتری‌ای برای نمایش وجود ندارد.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>شناسه</th>
+                <th>نام</th>
+                <th>نوع</th>
+                <th>ظرفیت (mAh)</th>
+                <th>وضعیت</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var battery in Model)
+            {
+                <tr>
+                    <td>@battery.Id</td>
+                    <td>@battery.Name</td>
+                    <td>@battery.Type</td>
+                    <td>@battery.Capacity</td>
+                    <td>@battery.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

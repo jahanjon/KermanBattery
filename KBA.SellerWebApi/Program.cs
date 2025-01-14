@@ -14,6 +14,7 @@ builder.Services.RegisterRepositories();
 builder.Services.RegisterServices();
 builder.Services.RegisterMapperProfiles();
 builder.Services.AddJwtAuthenticationToServices(builder.Configuration);
+builder.Services.AddValidationServices();
 #endregion
 var app = builder.Build();
 

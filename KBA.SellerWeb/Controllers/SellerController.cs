@@ -62,8 +62,14 @@ namespace RepresentativePanel.Web.Controllers
 
             return View(result.Value);
         }
+        private int GetSellerUserId()
+        {
+            var claims = User.Claims.ToList();
+            var userIdClaim = claims.FirstOrDefault(x => x.Type.Equals("UserId"))?.Value;
 
-        public async Task<IActionResult> UpdateAndInsertProfile([FromBody] DashboardDto dashboardDto)
+            return int.TryParse(userIdClaim, out int userId) ? userId : 0;
+        }
+        public async Task<IActionResult> UpdateAndInsertProfile(DashboardDto dashboardDto)
         {
             if (!ModelState.IsValid)
             {
@@ -81,12 +87,12 @@ namespace RepresentativePanel.Web.Controllers
                 Request.Cookies["AuthToken"]
             );
 
-            if (!result.Value)
+            if (result.Value==false)
             {
                 return Json(new
                 {
                     resultCode = result.ResultCode,
-                    resultMessage =result.ResultMessage
+                    resultMessage = result.ResultMessage
                 });
             }
 
@@ -100,16 +106,16 @@ namespace RepresentativePanel.Web.Controllers
         {
             var authToken = Request.Cookies["AuthToken"];
 
-            var result = await ApiService.GetData<Result<List<SellerLoginDto>>>(
+            var result = await ApiService.GetData<Result<SellerLoginReportDto>>(
                             configuration["GlobalSettings:ApiUrl"],
                             "Seller/UserActivity",
                             authToken
-                        );
+            );
 
             if (result == null || result.ResultCode != 200)
             {
                 TempData["Message"] = "خطا در بازیابی داده‌ها.";
-                return View(new List<SellerLoginDto>());
+                return View(new SellerLoginReportDto());
             }
 
             return View(result.Value);

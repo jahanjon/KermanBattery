@@ -10,7 +10,6 @@ namespace KBA.Domain.Entity.SellerLogin
 {
     public class SellerLoginReport : BaseEntity
     {
-        public string PhoneNumber { get; private set; }
         public DateTime LoginTime { get; private set; }
         public DateTime? LogoutTime { get; private set; }
         public string IpAddress { get; private set; }
@@ -24,9 +23,8 @@ namespace KBA.Domain.Entity.SellerLogin
 
         #region Constructor
 
-        public SellerLoginReport(string phoneNumber, string ipAddress, int sellerId)
+        public SellerLoginReport(string ipAddress, int sellerId)
         {
-            PhoneNumber = phoneNumber ?? throw new ArgumentNullException(nameof(phoneNumber));
             LoginTime = DateTime.UtcNow;
             IpAddress = ipAddress ?? throw new ArgumentNullException(nameof(ipAddress));
             SellerId = sellerId;

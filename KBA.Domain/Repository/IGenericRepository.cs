@@ -15,7 +15,7 @@ namespace KBA.Domain.Repository
         Task<IEnumerable<T>> GetAllAsNoTracking();
         Task<IEnumerable<T>> Paginate(int currentPage, int pageSize);
 
-        Task<T> GetAsNoTracking(long id);
+        Task<T> GetAsNoTracking(int id);
         Task<T> Get(long id);
         Task<bool> Insert(T entity);
         Task<long> InsertReturnId(T entity);

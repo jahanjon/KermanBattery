@@ -13,7 +13,7 @@ namespace KermanBatterSeller.UnitTest.TestAuth
         private readonly Mock<IAuthDataService> mockAuthDataService;
         private readonly Mock<ISellerRepository> mockSellerRepository;
         private readonly Mock<IConfiguration> mockConfiguration;
-        private readonly Mock<ISellerLoginService> mockSellerLoginService;
+        private readonly Mock<ISellerLoginReportService> mockSellerLoginService;
         private readonly AuthController controller;
 
         public AuthControllerTests()
@@ -21,7 +21,7 @@ namespace KermanBatterSeller.UnitTest.TestAuth
             mockAuthDataService = new Mock<IAuthDataService>();
             mockSellerRepository = new Mock<ISellerRepository>();
             mockConfiguration = new Mock<IConfiguration>();
-            mockSellerLoginService = new Mock<ISellerLoginService>();
+            mockSellerLoginService = new Mock<ISellerLoginReportService>();
 
             controller = new AuthController(mockAuthDataService.Object, mockConfiguration.Object, mockSellerLoginService.Object);
         }

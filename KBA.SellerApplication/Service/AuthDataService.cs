@@ -5,6 +5,7 @@ using KBA.SellerApplication.Contract.Auth.Dto;
 using KBA.Domain.Entity.SellerAgg;
 using KBA.Domain.Enum;
 using KBA.Domain.Repository;
+using System.Net;
 
 
 namespace KBA.SellerApplication.Service
@@ -13,9 +14,9 @@ namespace KBA.SellerApplication.Service
     {
         private readonly IGenericRepository<Seller> selllerRepsoitory;
         private readonly ISellerRepository hasherPassword;
-        private readonly ISellerLoginService sellerLoginService;
+        private readonly ISellerLoginReportService sellerLoginService;
 
-        public AuthDataService(IGenericRepository<Seller> selllerRepsoitory, ISellerRepository hasherPassword, ISellerLoginService sellerLoginService)
+        public AuthDataService(IGenericRepository<Seller> selllerRepsoitory, ISellerRepository hasherPassword, ISellerLoginReportService sellerLoginService)
         {
             this.selllerRepsoitory = selllerRepsoitory;
             this.hasherPassword = hasherPassword;
@@ -69,7 +70,7 @@ namespace KBA.SellerApplication.Service
             {
                 Token = token
             };
-
+            await sellerLoginService.RecordLoginAsync(user.Id, loginDto.IPAddress);
             return Result<TokenResultDto>.Success(ResultInfo.LoginSuccess, loginDtoResult);
         }
 

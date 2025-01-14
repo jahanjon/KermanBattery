@@ -14,9 +14,9 @@ namespace RepresentativePanel.WebApi.Controllers.Seller
     public class SellerController : ControllerBase
     {
         private readonly ISellerService sellerService;
-        private readonly ISellerLoginService sellerLoginService;
+        private readonly ISellerLoginReportService sellerLoginService;
 
-        public SellerController(ISellerService sellerService, ISellerLoginService sellerLoginService)
+        public SellerController(ISellerService sellerService, ISellerLoginReportService sellerLoginService)
         {
             this.sellerService = sellerService;
             this.sellerLoginService = sellerLoginService;
@@ -86,16 +86,20 @@ namespace RepresentativePanel.WebApi.Controllers.Seller
             {
                 return Result<bool>.Failure(ResultInfo.SellerNotFound);
             }
-            dashboardDto.SellerId = sellerId;
-            var result = await sellerService.UpdateAndInsertProfile(dashboardDto);
+            var result = await sellerService.UpdateAndInsertProfile(dashboardDto,sellerId);
 
             return result;
         }
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<Result<List<SellerLoginDto>>> UserActivity()
+        public async Task<Result<SellerLoginReportDto>> UserActivity()
         {
-            var result = await sellerLoginService.SellerActivity();
+            var sellerId = GetSellerUserId();
+            if (sellerId == 0)
+            {
+                return Result<SellerLoginReportDto>.Failure(ResultInfo.SellerNotFound);
+            }
+            var result = await sellerLoginService.SellerActivity(sellerId);
             return result;
         }
 

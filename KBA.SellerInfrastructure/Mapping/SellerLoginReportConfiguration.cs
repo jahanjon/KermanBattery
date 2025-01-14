@@ -19,8 +19,6 @@ namespace KBA.SellerInfrastructure.Mapping
 
             builder.HasOne(u => u.Seller).WithMany(s => s.SellerLogins).HasForeignKey(u => u.SellerId).OnDelete(DeleteBehavior.Cascade);
 
-            builder.Property(u => u.PhoneNumber).IsRequired().HasMaxLength(15);
-
             builder.Property(u => u.LoginTime).IsRequired();
 
             builder.Property(u => u.IpAddress).IsRequired().HasMaxLength(50);

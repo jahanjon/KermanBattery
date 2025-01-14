@@ -15,9 +15,9 @@ namespace RepresentativePanel.WebApi.Controllers.Auth
     {
         private readonly IAuthDataService authDataService;
         private readonly IConfiguration configuration;
-        private readonly ISellerLoginService sellerLoginService;
+        private readonly ISellerLoginReportService sellerLoginService;
 
-        public AuthController(IAuthDataService authDataService, IConfiguration configuration, ISellerLoginService sellerLoginService)
+        public AuthController(IAuthDataService authDataService, IConfiguration configuration, ISellerLoginReportService sellerLoginService)
         {
             this.authDataService = authDataService;
             this.configuration = configuration;
@@ -30,10 +30,6 @@ namespace RepresentativePanel.WebApi.Controllers.Auth
             var ipAddress = loginDto.IPAddress;
             var jwtKey = configuration["TokenKey"];
             var result = await authDataService.Login(loginDto, jwtKey);
-            if (result.ResultCode == result.ResultCode)
-            {
-                await sellerLoginService.RecordLoginAsync(loginDto.PhoneNumber, ipAddress);
-            }
             return result;
         }
         [HttpPost]

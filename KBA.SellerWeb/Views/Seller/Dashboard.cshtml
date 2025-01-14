@@ -14,6 +14,7 @@
             <img src="/path/to/default-profile.png" alt="Profile Picture" />
         </div>
         <div class="profile-details">
+
             <h3>@Model.FirstName @Model.LastName</h3>
             <p>کد نمایندگی: @Model.NationalNumber</p>
             <p>استان: @Model.Province</p>
@@ -34,22 +35,49 @@
             </a>
         </div>
         <div class="menu-item">
-            <a href="/BatteryList">
+            <a href="@Url.Action("BatteryList", "Product")">
                 <span>لیست باتری‌ها</span>
-            </a>
-        </div>
-        <div class="menu-item">
-            <a href="javascript:void(0);" onclick="changeRoleToAdmin()">
-                <span>Change user to admin</span>
             </a>
         </div>
         <div class="menu-item" id="user-activity-menu">
             <a href="@Url.Action("UserActivity", "Seller")">
-                <span>فعالیت کاربران</span>
+                <span>فعالیت های من </span>
             </a>
         </div>
-        <div class="menu-item">
-            <a href="@Url.Action("PersonalInformation", "Seller")">داشبورد</a>
+        <div class="menu-item" id="user-activity-menu">
+            <a href="@Url.Action("PersonalInformation", "Seller")">
+                <span> ویرایش پروفایل</span>
+            </a>
+        </div>
+        <div class="menu-item" id="user-activity-menu">
+            <a href="@Url.Action("BatteryReplacement", "Seller")">
+                <span>تعویض باتری ها</span>
+            </a>
+        </div>
+        <div class="menu-item" id="user-activity-menu">
+            <a href="@Url.Action("WarrantyInquiry", "Seller")">
+                <span> استعلام گارانتی</span>
+            </a>
+        </div>
+        <div class="menu-item" id="user-activity-menu">
+            <a href="@Url.Action("WarrantyInquiry", "Seller")">
+                <span>قعالسازی گارانتی</span>
+            </a>
+        </div>
+        <div class="menu-item" id="user-activity-menu">
+            <a href="@Url.Action("WarrantyInquiry", "Seller")">
+                <span> عامل فروش </span>
+            </a>
+        </div>
+        <div class="menu-item" id="user-activity-menu">
+            <a href="@Url.Action("WarrantyInquiry", "Seller")">
+                <span> باتری های تعویضی</span>
+            </a>
+        </div>
+        <div class="menu-item" id="user-activity-menu">
+            <a href="@Url.Action("WarrantyInquiry", "Seller")">
+                <span> لیست سفارشات</span>
+            </a>
         </div>
     </div>
 </div>

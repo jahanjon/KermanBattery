@@ -59,11 +59,23 @@ namespace KBA.Domain.Entity.SellerAgg
         {
             return OtpCode == otpCode && CodeExpireTime > DateTime.Now;
         }
-        public void UpdateProfile(string title, string province, string address)
+        public void UpdateProfile(string firstName, string lastName, string email, string nationalNumber, string phoneNumber, Gender gender, string title, string province, string address, string city, string description,string grade)
         {
             Title = title;
             Province = province;
             Address = address;
+            FirstName = firstName;
+            LastName = lastName;
+            Address = address;
+            Province = province;
+            NationalNumber = nationalNumber;
+            Title = title;
+            Gender = gender;
+            Email = email;
+            Description = description;
+            PhoneNumber = phoneNumber;
+            City = city;
+            Grade = grade;
         }
         public void ChangeRole(Roles role)
         {

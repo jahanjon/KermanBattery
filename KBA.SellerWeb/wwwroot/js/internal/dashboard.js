@@ -114,3 +114,12 @@ function logoutUser() {
         });
 }
 //-------------ChangePassword&LogOut-------------//
+$('#frmAddId').on('submit', function () {
+
+    $("#frmAddId").validate();
+    if ($('#frmAddId').valid()) {
+
+        $('#btnSubmitForm').attr('disabled', true);
+        $('#btnSubmitForm').addClass("spinner spinner-spinner-white spinner-left");
+    }
+});

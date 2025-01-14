@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="FluentValidation" Version="11.11.0" />
 	  <PackageReference Include="xunit" Version="2.9.2" />
 	  <PackageReference Include="xunit.runner.visualstudio" Version="3.0.0">
 	    <PrivateAssets>all</PrivateAssets>
@@ -15,6 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\KBA.Domain\KBA.Domain.csproj" />
 		<ProjectReference Include="..\KBA.Farmework\KBA.Farmework.csproj" />
 	</ItemGroup>
 

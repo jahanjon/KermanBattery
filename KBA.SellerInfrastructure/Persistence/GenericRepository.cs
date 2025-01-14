@@ -41,7 +41,7 @@ namespace KBA.SellerInfrastructure.Persistence
             return await context.Set<T>().SingleOrDefaultAsync(e => e.Id == id); ;
         }
 
-        public async Task<T> GetAsNoTracking(long id)
+        public async Task<T> GetAsNoTracking(int id)
         {
             return await context.Set<T>().AsNoTracking().SingleOrDefaultAsync(e => e.Id == id);
         }

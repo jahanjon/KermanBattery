@@ -10,9 +10,13 @@ using Microsoft.IdentityModel.Tokens;
 using KBA.SellerInfrastructure.Persistence;
 using KBA.SellerInfrastructure.Repository;
 using KBA.Domain.Entity.SellerAgg;
-using KBA.Domain.Entity.SellerLogin;
 using KBA.Domain.Repository;
 using System.Text;
+using KBA.SellerApplication.Contract.Seller.Validation;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using KBA.SellerApplication.Contract.Auth.Validation;
+using KBA.Domain.Entity.SellerLogin;
 
 namespace KBA.SellerConfiguration
 {
@@ -24,8 +28,8 @@ namespace KBA.SellerConfiguration
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IAuthDataService, AuthDataService>();
             services.AddTransient<ISellerService,SellerService>();
-            services.AddTransient<ISellerLoginReportRepository,SellerLoginRepository>();
-            services.AddTransient<ISellerLoginService,SellerLoginService>();
+            services.AddTransient<ISellerLoginReportRepository, SellerLoginReportRepository>();
+            services.AddTransient<ISellerLoginReportService,SellerLoginReportService>();
         }
         public static void RegisterRepositories(this IServiceCollection services)
         {
@@ -63,7 +67,18 @@ namespace KBA.SellerConfiguration
         public static void RegisterMapperProfiles(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(DashbordProfile));
-            services.AddAutoMapper(typeof(SellerLoginProfile));
+            services.AddAutoMapper(typeof(SellerLoginReportProfile));
+        }
+        public static void AddValidationServices(this IServiceCollection services)
+        {
+            services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+
+            services.AddValidatorsFromAssemblyContaining<DashboardValidator>();
+            services.AddValidatorsFromAssemblyContaining<ChangePasswordValidator>();
+            services.AddValidatorsFromAssemblyContaining<GetVerificationCodeValidator>();
+            services.AddValidatorsFromAssemblyContaining<LoginValidator>();
+            services.AddValidatorsFromAssemblyContaining<SellerLoginReportValidator>();
+            AppContext.SetSwitch("Microsoft.AspNetCore.Mvc.EnableImplicitMvcValidation", true);
         }
     }
 }

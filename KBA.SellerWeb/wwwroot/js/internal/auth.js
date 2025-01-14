@@ -40,18 +40,6 @@ function loginUser(userIP) {
 }
 
 
-function showForgotPassword() {
-    document.getElementById("login-form").style.display = "none";
-    document.getElementById("forgot-password-form").style.display = "block";
-}
-
-
-function showLogin() {
-    document.getElementById("forgot-password-form").style.display = "none";
-    document.getElementById("login-form").style.display = "block";
-}
-
-
 function sendVerificationCode() {
     const phoneNumber = document.getElementById("forgot-phone").value;
 
@@ -71,9 +59,6 @@ function sendVerificationCode() {
         .then(result => {
             if (result.resultCode === 202) {
                 MessageShow("عملیات با موفقیت انجام شد ", result.resultMessage, "موفق",3000);
-
-                document.getElementById("forgot-password-form").style.display = "none";
-                document.getElementById("enter-verification-code-form").style.display = "block";
             } else {
                 alert(result.resultMessage);
             }
@@ -109,8 +94,6 @@ function changePassword() {
         .then(result => {
             if (result.resultCode === 204) {
                 MessageShow("عملیات با موفقیت انجام شد ", result.resultMessage, "موفق", 3000);
-                document.getElementById("login-form").style.display = "block";
-                document.getElementById("enter-verification-code-form").style.display = "none";
             } else {
                 alert(result.resultMessage);
             }
@@ -118,10 +101,10 @@ function changePassword() {
         .catch(error => console.error('Error:', error));
 }
 //------------Captcha-----------//
-const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+const characters = '0123456789'; 
 function generateCaptcha() {
     let captcha = '';
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 4; i++) { 
         captcha += characters.charAt(Math.floor(Math.random() * characters.length));
     }
     document.getElementById('captcha').textContent = captcha;
@@ -142,6 +125,7 @@ function validateCaptcha() {
 }
 
 window.onload = generateCaptcha;
+
 //-----------------------//
 function logoutUser() {
     fetch('/Auth/LogOut', {
