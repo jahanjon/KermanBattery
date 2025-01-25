@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/Internal/Dashboard.css">
 }
 <div class="dashboard-container">
-
+@* 
     <div class="profile-section">
         <div class="profile-image">
             <img src="/path/to/default-profile.png" alt="Profile Picture" />
@@ -25,7 +25,7 @@
             <button class="btn btn-primary" onclick="showChangePasswordModal()">تغییر رمز عبور</button> |
             <button class="btn btn-secondary" onclick="logoutUser()">خروج</button>
         </div>
-    </div>
+    </div> *@
 
     <!-- بخش منوها -->
     <div class="menu-section">
@@ -61,7 +61,7 @@
         </div>
         <div class="menu-item" id="user-activity-menu">
             <a href="@Url.Action("WarrantyInquiry", "Seller")">
-                <span>قعالسازی گارانتی</span>
+                <span>فعالسازی گارانتی</span>
             </a>
         </div>
         <div class="menu-item" id="user-activity-menu">
@@ -82,26 +82,26 @@
     </div>
 </div>
 
-<div id="changePasswordModal" class="modal fade" style="display:none">
+<div id="changePasswordModal" class="changePasswordModal" style="display:none;text-align: end;>
     <div class="modal-dialog">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <div id="changePasswordStep1">
                 <h3>تغییر رمز عبور</h3>
-                <label for="forgot-phone">شماره تلفن:</label>
                 <input type="text" id="forgot-phone" placeholder="شماره تلفن خود را وارد کنید" />
-                <button class="btn btn-primary" onclick="sendVerificationCode()">ارسال کد تایید</button>
+                <label for="forgot-phone">:شماره تلفن</label>
+                <button class="btn btn-primary" onclick="sendVerificationCode()" style="margin-top: 10px;">ارسال کد تایید</button>
             </div>
 
             <div id="changePasswordStep3" style="display:none;">
                 <h3>تغییر رمز عبور جدید</h3>
-                <label for="verification-code">کد تایید:</label>
-                <input type="text" id="verification-code" placeholder="کد تایید را وارد کنید" />
-                <label for="new-password">رمز عبور جدید:</label>
+                <input type="text" class="verifyCode" id="verification-code" placeholder="کد تایید را وارد کنید" />
+                <label for="verification-code">:کد تایید</label>
                 <input type="password" id="new-password" placeholder="رمز عبور جدید" />
-                <label for="confirm-password">تکرار رمز عبور:</label>
-                <input type="password" id="confirm-password" placeholder="تکرار رمز عبور" />
-                <button class="btn btn-success" onclick="changePassword()">تغییر رمز عبور</button>
+                <label for="new-password">:رمز عبور جدید</label>
+                <input type="password" id="confirm-password" class="replayPassword" placeholder="تکرار رمز عبور" />
+                <label for="confirm-password">:تکرار رمز عبور</label>
+                <button class="btn btn-success" style="margin-right: 67%;" onclick="changePassword()">تغییر رمز عبور</button>
             </div>
         </div>
     </div>
@@ -111,3 +111,6 @@
     <script src="/js/internal/dashboard.js"></script>
     <script src="/js/internal/messageShow.js"></script>
 }
+<style>
+
+</style>

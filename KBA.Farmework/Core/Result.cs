@@ -50,4 +50,19 @@ namespace KBA.Framework.Core
         public string Message { get; set; }
         public string Details { get; set; }
     }
+    public class ApplicationPaginateResult<T>
+    {
+        public List<T> Items { get; set; }
+        public ApplicationPaginateResultItems ApplicationPaginateResultItems { get; set; }
+    }
+
+    public class ApplicationPaginateResultItems
+    {
+        public int TotalCount { get; set; }
+        public int PageIndex { get; set; }
+        public int PageSize { get; set; }
+        public int PageStep { get; set; }
+        public int TotalPages { get; set; }
+        public string ActionName { get; set; }
+    }
 }

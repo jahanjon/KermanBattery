@@ -2,10 +2,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p> Kerman Battery</p>
-</div>
 
 @section Css {
     <link rel="stylesheet" href="~/css/Internal/Auth.css">
@@ -16,12 +12,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="login-container">
         <div id="login-form" class="login-box">
-            <img src="logo.png" alt="Logo" class="logo">
+            <img src="/assets/media/logos/kermanbattery.png" alt="Logo" class="logo">
+            <div class="flex justify-center border-b-2"></div>
             <h2>ورود به پنل نمایندگان کرمان باتری ارگ</h2>
             <form onsubmit="event.preventDefault(); getUserIP();">
                 <input type="text" id="login-phone" placeholder="نام کاربری را وارد نمایید" required>
@@ -35,22 +31,23 @@
                 <button type="submit" class="login-button">ورود</button>
             </form>
         </div>
-
-        <div id="forgot-password-form" class="login-box" style="display: none;">
-            <h2>فراموشی رمز عبور</h2>
-            <input type="text" id="forgot-phone" placeholder="شماره تلفن را وارد نمایید" required>
-            <button onclick="sendVerificationCode()">ارسال کد تایید</button>
-            <a href="#" onclick="showLogin()">بازگشت به ورود</a>
-        </div>
-
-        <div id="enter-verification-code-form" class="login-box" style="display: none;">
-            <h2>تایید کد</h2>
-            <input type="text" id="verification-code" placeholder="کد تایید را وارد نمایید" required>
-            <input type="password" id="new-password" placeholder="رمز عبور جدید" required>
-            <input type="password" id="confirm-password" placeholder="تکرار رمز عبور جدید" required>
-            <button onclick="changePassword()">تغییر رمز عبور</button>
-        </div>
     </div>
+
+    <div id="forgot-password-form" class="login-box" style="display: none;">
+        <h2>فراموشی رمز عبور</h2>
+        <input type="text" id="forgot-phone" placeholder="شماره تلفن را وارد نمایید" required>
+        <button onclick="sendVerificationCode()">ارسال کد تایید</button>
+        <a href="#" onclick="showLogin()">بازگشت به ورود</a>
+    </div>
+
+    <div id="enter-verification-code-form" class="login-box" style="display: none;">
+        <h2>تایید کد</h2>
+        <input type="text" id="verification-code" placeholder="کد تایید را وارد نمایید" required>
+        <input type="password" id="new-password" placeholder="رمز عبور جدید" required>
+        <input type="password" id="confirm-password" placeholder="تکرار رمز عبور جدید" required>
+        <button onclick="changePassword()">تغییر رمز عبور</button>
+    </div>
+
 </body>
 </html>
 

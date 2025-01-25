@@ -33,14 +33,14 @@ namespace RepresentativePanel.WebApi.Controllers.Auth
             return result;
         }
         [HttpPost]
-        public async Task<Result<string>> GetVerificationCode([FromBody] GetverificationCodeDto dto)
+        public async Task<Result<string>> GetVerificationCode(GetverificationCodeDto dto)
         {
             var result = await authDataService.GetVerificationCode(dto);
             return result;
         }
 
         [HttpPost]
-        public async Task<Result<string>> ChangePassword([FromBody] ChangePasswordDto dto)
+        public async Task<Result<string>> xdsds(ChangePasswordDto dto)
         {
             var result = await authDataService.ChangePassword(dto);
             return result;

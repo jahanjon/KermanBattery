@@ -72,9 +72,9 @@ namespace RepresentativePanel.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto dto)
         {
-            var result = await ApiService.PostData<Result<string>>(
+        var result = await ApiService.PostData<Result<string>>(
                 configuration["GlobalSettings:ApiUrl"],
-                "Auth/ChangePassword",
+                "Auth/xdsds",
                 dto
             );
 
@@ -94,7 +94,7 @@ namespace RepresentativePanel.Web.Controllers
                 return View("EnterVerificationCode");
             }
         }
-        [HttpPost]
+
         public async Task<IActionResult> LogOutAsync()
         {
 

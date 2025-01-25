@@ -2,12 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using KBA.Domain.Repository;
 using System.Linq.Expressions;
+using System.Linq;
+using EFCore.BulkExtensions;
+using KBA.Domain.Repository.Paginate;
 
 
 namespace KBA.SellerInfrastructure.Persistence
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+
     {
+
 
         private readonly KermanBatterySellerContext context;
         private DbSet<T> entities;
@@ -19,6 +24,52 @@ namespace KBA.SellerInfrastructure.Persistence
         }
 
 
+        private RepositoryPaginateResult<T> ReturnRepositoryPaginateResult(List<T> lst, int totalCount, int pageIndex, int pageSize, int totalPages, string actionName)
+        {
+            return new RepositoryPaginateResult<T>
+            {
+                Items = lst,
+                PagedResultIndex = new RepositoryPaginateResultItems()
+                {
+                    TotalCount = totalCount,
+                    PageIndex = pageIndex,
+                    PageSize = pageSize,
+                    TotalPages = totalPages,
+                    PageStep = (pageIndex + 3) > totalPages ? totalPages : (pageIndex + 3),
+                    ActionName = actionName
+                }
+            };
+        }
+
+
+        public async Task<RepositoryPaginateResult<T>> GetPagedAsync(int pageIndex, int pageSize, string actionName)
+        {
+            var totalCount = await entities.CountAsync();
+            var items = await entities.OrderByDescending(x => x.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+            var totalPages = (int)System.Math.Ceiling((double)totalCount / pageSize);
+
+            return ReturnRepositoryPaginateResult(items, totalCount, pageIndex, pageSize, totalPages, actionName);
+
+        }
+
+
+
+        public async Task<RepositoryPaginateResult<T>> GetPagedByWhereAndTwoInclude(int pageIndex, int pageSize, string actionName, Expression<Func<T, bool>> predicate, string firstInclude, string secondInclude)
+        {
+            var totalCount = await entities.CountAsync(predicate);
+            var items = await entities.Where(predicate).Include(firstInclude).Include(secondInclude).OrderByDescending(x => x.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+            var totalPages = (int)System.Math.Ceiling((double)totalCount / pageSize);
+            return ReturnRepositoryPaginateResult(items, totalCount, pageIndex, pageSize, totalPages, actionName);
+
+
+        }
+
+
+
+        public async Task<IEnumerable<T>> Paginate(int currentPage, int pageSize = 10)
+        {
+            return await entities.OrderByDescending(x => x.Id).Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
+        }
 
         public async Task<IEnumerable<T>> GetAll()
         {
@@ -30,10 +81,7 @@ namespace KBA.SellerInfrastructure.Persistence
             return await entities.AsNoTracking().ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> Paginate(int currentPage, int pageSize = 10)
-        {
-            return await entities.OrderByDescending(x => x.Id).Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
-        }
+
 
         public async Task<T> Get(long id)
         {
@@ -41,7 +89,7 @@ namespace KBA.SellerInfrastructure.Persistence
             return await context.Set<T>().SingleOrDefaultAsync(e => e.Id == id); ;
         }
 
-        public async Task<T> GetAsNoTracking(int id)
+        public async Task<T> GetAsNoTracking(long id)
         {
             return await context.Set<T>().AsNoTracking().SingleOrDefaultAsync(e => e.Id == id);
         }
@@ -211,52 +259,52 @@ namespace KBA.SellerInfrastructure.Persistence
 
 
 
-        //public async Task<List<T>> BulkUpdate(List<T> entity)
-        //{
-        //    try
-        //    {
-        //        if (entity == null)
-        //        {
-        //            return new List<T>();
-        //        }
+        public async Task<List<T>> BulkUpdate(List<T> entity)
+        {
+            try
+            {
+                if (entity == null)
+                {
+                    return new List<T>();
+                }
 
-        //        await context.BulkUpdateAsync(entity);
-        //        return entity;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        var sss = e.Message;
-        //        return new List<T>();
-        //    }
+                await context.BulkUpdateAsync(entity);
+                return entity;
+            }
+            catch (Exception e)
+            {
+                var sss = e.Message;
+                return new List<T>();
+            }
 
-        //}
+        }
 
 
 
-        //public async Task<List<T>> BulkInsert(List<T> entity)
-        //{
-        //    try
-        //    {
-        //        if (entity == null)
-        //        {
-        //            return new List<T>();
-        //        }
+        public async Task<List<T>> BulkInsert(List<T> entity)
+        {
+            try
+            {
+                if (entity == null)
+                {
+                    return new List<T>();
+                }
 
-        //        BulkConfig bulkCOnfig = new BulkConfig()
-        //        {
-        //            SetOutputIdentity = true
-        //        };
+                BulkConfig bulkCOnfig = new BulkConfig()
+                {
+                    SetOutputIdentity = true
+                };
 
-        //        await context.BulkInsertAsync(entity, bulkCOnfig);
-        //        return entity;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        var sss = e.Message;
-        //        return new List<T>();
-        //    }
+                await context.BulkInsertAsync(entity, bulkCOnfig);
+                return entity;
+            }
+            catch (Exception e)
+            {
+                var sss = e.Message;
+                return new List<T>();
+            }
 
-        //}
+        }
 
 
 
@@ -400,37 +448,27 @@ namespace KBA.SellerInfrastructure.Persistence
             return await query.ToListAsync();
         }
 
-        public Task<List<T>> BulkInsert(List<T> entity)
+        public async Task<PaginateDto<T>> PaginateRecords(string controllerName, string actionName, string rowPages, int pageId)
         {
-            throw new NotImplementedException();
+            var paginateData = new PaginateDto<T>();
+
+            paginateData.PaginateDtoViewModel = new();
+
+            var rowPage = Convert.ToInt32(rowPages);
+            paginateData.PaginateDtoViewModel.TotalPages = TotalPages(rowPage);
+            paginateData.PaginateDtoViewModel.LastPage = paginateData.PaginateDtoViewModel.TotalPages;
+            paginateData.PaginateDtoViewModel.PageCount = paginateData.PaginateDtoViewModel.TotalPages;
+            paginateData.PaginateDtoViewModel.TotalRecords = GetCount();
+            paginateData.PaginateDtoViewModel.RowPages = rowPage;
+            paginateData.PaginateDtoViewModel.ControllerName = controllerName;
+            paginateData.PaginateDtoViewModel.Action = actionName;
+            paginateData.PaginateDtoViewModel.PageId = pageId; ;
+            paginateData.PaginateDtoViewModel.Step = 3;
+            paginateData.Records = await Paginate(paginateData.PaginateDtoViewModel.PageId, paginateData.PaginateDtoViewModel.RowPages);
+            return paginateData;
         }
-
-        public Task<List<T>> BulkUpdate(List<T> entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public async Task<PaginateDto<T>> PaginateRecords(string controllerName, string actionName, string rowPages, int pageId)
-        //{
-        //    var paginateData = new PaginateDto<T>();
-
-        //    paginateData.PaginateDtoViewModel = new();
-
-        //    var rowPage = Convert.ToInt32(rowPages);
-        //    paginateData.PaginateDtoViewModel.TotalPages = TotalPages(rowPage);
-        //    paginateData.PaginateDtoViewModel.LastPage = paginateData.PaginateDtoViewModel.TotalPages;
-        //    paginateData.PaginateDtoViewModel.PageCount = paginateData.PaginateDtoViewModel.TotalPages;
-        //    paginateData.PaginateDtoViewModel.TotalRecords = GetCount();
-        //    paginateData.PaginateDtoViewModel.RowPages = rowPage;
-        //    paginateData.PaginateDtoViewModel.ControllerName = controllerName;
-        //    paginateData.PaginateDtoViewModel.Action = actionName;
-        //    paginateData.PaginateDtoViewModel.PageId = pageId; ;
-        //    paginateData.PaginateDtoViewModel.Step = 3;
-        //    paginateData.Records = await Paginate(paginateData.PaginateDtoViewModel.PageId, paginateData.PaginateDtoViewModel.RowPages);
-        //    return paginateData;
     }
 }
-
 
 
 

@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using KBA.SellerInfrastructure.Persistence;
-using KBA.SellerInfrastructure.Repository;
 using KBA.Domain.Entity.SellerAgg;
 using KBA.Domain.Repository;
 using System.Text;
@@ -17,6 +16,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using KBA.SellerApplication.Contract.Auth.Validation;
 using KBA.Domain.Entity.SellerLogin;
+using KBA.SellerInfrastructure.Repository;
 
 namespace KBA.SellerConfiguration
 {

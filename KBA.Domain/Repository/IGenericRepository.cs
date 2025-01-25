@@ -1,21 +1,20 @@
 ﻿
 using KBA.Farmework.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using KBA.Domain.Repository.Paginate;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace KBA.Domain.Repository
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {
+        Task<RepositoryPaginateResult<T>> GetPagedByWhereAndTwoInclude(int pageIndex, int pageSize, string actionName, Expression<Func<T, bool>> predicate, string firstInclude, string secondInclude);
+        Task<RepositoryPaginateResult<T>> GetPagedAsync(int pageIndex, int pageSize, string actionName);
         Task<IEnumerable<T>> GetAll();
         Task<IEnumerable<T>> GetAllAsNoTracking();
         Task<IEnumerable<T>> Paginate(int currentPage, int pageSize);
 
-        Task<T> GetAsNoTracking(int id);
+        Task<T> GetAsNoTracking(long id);
         Task<T> Get(long id);
         Task<bool> Insert(T entity);
         Task<long> InsertReturnId(T entity);
@@ -55,7 +54,7 @@ namespace KBA.Domain.Repository
         long GetMax(Func<T, long> columnSelector);
 
 
-        //Task<PaginateDto<T>> PaginateRecords(string controllerName, string actionName, string rowPages, int pageId);
+        Task<PaginateDto<T>> PaginateRecords(string controllerName, string actionName, string rowPages, int pageId);
 
         long GetMaxWhere(Func<T, long> columnSelector, Expression<Func<T, bool>> predicate);
 
